@@ -149,7 +149,7 @@ def test_failed_chapter_falls_back_to_next_provider_then_template(articles, char
     p1 = DeepProvider("p1", fail_chapters={2})
     p2 = DeepProvider("p2", fail_chapters={2})
     logs = []
-    script, used, warnings = write_script_deep(articles, characters, "x", [p1, p2], log=logs.append, target_minutes=30, pause=0, retry_wait=0)
+    script, used, warnings = write_script_deep(articles, characters, "x", [p1, p2], log=logs.append, target_minutes=30, pause=0, retry_wait=0, retry_cooldown=0)
     assert any("chapter 2 はテンプレート" in w for w in warnings)
     assert "template" in used and "p1" in used
     assert script["chapters"][2]["source_ids"] == [articles[1].id]
@@ -167,10 +167,11 @@ def test_numbers_from_related_headlines_are_not_flagged(articles, characters):
         def generate(self, system, user):
             out = super().generate(system, user)
             if self.calls[-1] == "chapter" and articles[0].title[:10] in user:
-                return chapter_json(articles[0].title, extra_text="、100年の歴史を写真で振り返る展示です。")
+                return chapter_json(articles[0].title, extra_text="、100年の歴史を写真で振り返る展示です。背景もあわせてじっくり紹介していきますね、とても見応えがありそうです。")
             return out
 
-    _, _, warnings = write_script_deep(articles, characters, "x", [P()], log=lambda *_: None, pause=0, retry_wait=0)
+    _, used, warnings = write_script_deep(articles, characters, "x", [P()], log=lambda *_: None, pause=0, retry_wait=0, retry_cooldown=0)
+    assert used == "deep" and not any("テンプレート" in w for w in warnings)  # 章がAIのまま採用されていること
     assert not any("記事に無い数字" in w for w in warnings)
 
 
@@ -203,8 +204,8 @@ def test_retry_follows_server_retry_delay(monkeypatch):
     assert waits == [24.0, 10.0]  # サーバー指定(23s)+1秒、2回目は wait*2
     with pytest.raises(LLMError):  # 1日の上限など長すぎる待ちは諦めて次のモデルへ
         S._generate_with_retry(P([LLMError("gemini HTTP 429 retry_after=3600: daily")]), "s", "u", lambda *_: None, wait=5)
-    with pytest.raises(LLMError):  # 3回失敗したら諦める
-        S._generate_with_retry(P([LLMError("gemini HTTP 503: busy")] * 3), "s", "u", lambda *_: None, wait=0)
+    with pytest.raises(LLMError):  # 4回失敗したら諦める
+        S._generate_with_retry(P([LLMError("gemini HTTP 503: busy")] * 4), "s", "u", lambda *_: None, wait=0)
 
 
 def test_gemini_error_carries_retry_delay():
@@ -230,7 +231,7 @@ def test_too_short_chapter_is_rejected(articles, characters):
             return super().generate(system, user)
 
     p = Short()
-    _, used, warnings = write_script_deep(articles, characters, "x", [p], log=lambda *_: None, pause=0, retry_wait=0)
+    _, used, warnings = write_script_deep(articles, characters, "x", [p], log=lambda *_: None, pause=0, retry_wait=0, retry_cooldown=0)
     assert used == "template" or "template" in used
     assert sum("テンプレートで代用" in w for w in warnings) == len(articles)
 
@@ -265,3 +266,46 @@ def test_chapter_prompt_forbids_greetings_and_asks_enough_length(articles, chara
     per_news = (30 - 2.5) / len(articles)
     asked = int(int(per_news * CHARS_PER_MIN) * 1.4)
     assert f"合計およそ {asked} 文字" in seen[0]
+
+
+
+def test_failed_chapter_is_retried_after_cooldown(articles, characters, monkeypatch):
+    """1周目に混雑で失敗した章は、全章のあと少し待って2周目で書けばテンプレートにならない。"""
+    waits = []
+    monkeypatch.setattr("time.sleep", lambda s: waits.append(s))
+
+    class Busy(DeepProvider):
+        def __init__(self):
+            super().__init__("busy")
+            self.failed_once = set()
+
+        def generate(self, system, user):
+            if "1コーナー" in system:
+                idx = int(user.split("中 ")[1].split(" 本目")[0])
+                if idx == 2 and idx not in self.failed_once:
+                    self.failed_once.add(idx)
+                    self.calls.append("chapter")
+                    raise LLMError("x HTTP 400: busy")
+            return super().generate(system, user)
+
+    logs = []
+    script, used, warnings = write_script_deep(articles, characters, "x", [Busy()], log=logs.append, pause=0, retry_wait=0, retry_cooldown=90)
+    assert used == "busy" and not any("テンプレート" in w for w in warnings)
+    assert 90 in waits and any("再挑戦" in l for l in logs)
+    assert len(script["chapters"][2]["lines"]) >= 8
+
+
+def test_github_models_non_json_response_is_clear_error():
+    from radio.script import GitHubModelsProvider
+
+    class R:
+        status_code = 200
+        text = "OK"
+
+        def json(self):
+            raise ValueError("Expecting value")
+
+    p = GitHubModelsProvider("t", post=lambda *a, **k: R())
+    with pytest.raises(LLMError, match="JSONではない"):
+        p.generate("s", "u")
+    assert p.usage["errors"] == {"bad-response": 1}

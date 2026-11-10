@@ -2,7 +2,7 @@
   "_comment": "毎朝の番組で取り上げるトピック。キーワードは Google News を 'キーワード when:1d' で検索。max=1回に入れる最大本数。region_any を書くと地域で絞り込み",
   "lookback_hours": 36,
   "max_per_topic": 2,
-  "max_total": 9,
+  "max_total": 11,
   "minutes": {
     "weekday": 30,
     "weekend": 30
@@ -106,7 +106,7 @@
         "広島",
         "仙台"
       ],
-      "max": 5
+      "max": 6
     },
     {
       "name": "生成AI",
@@ -115,7 +115,7 @@
         "生成AI",
         "LLM"
       ],
-      "max": 1
+      "max": 2
     },
     {
       "name": "クラウド",
@@ -133,7 +133,7 @@
         "Python",
         "GitHub"
       ],
-      "max": 1
+      "max": 2
     },
     {
       "name": "データサイエンス",

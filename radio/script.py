@@ -232,6 +232,10 @@ class GitHubModelsProvider:
             raise LLMError(f"github-models HTTP {r.status_code}: {r.text[:200]}")
         try:
             data = r.json()
+        except ValueError as e:
+            _count_error(self.usage, "bad-response")
+            raise LLMError(f"github-models の応答がJSONではない（サービス停止の可能性）: {r.text[:60]!r}") from e
+        try:
             u = data.get("usage") or {}
             self.usage["ok"] += 1
             self.usage["prompt_tokens"] += int(u.get("prompt_tokens", 0))
@@ -371,7 +375,7 @@ RETRY_AFTER_RE = re.compile(r"retry_after=(\d+)")
 MAX_RETRY_WAIT = 60.0  # これ以上待てと言われたら（1日の上限など）次のモデルへ回す
 
 
-def _generate_with_retry(p, system: str, user: str, log, wait: float, attempts: int = 3) -> str:
+def _generate_with_retry(p, system: str, user: str, log, wait: float, attempts: int = 4) -> str:
     """混雑(503)や一時的な上限(429)のときだけ、待ってやり直す（最大 attempts 回）。
 
     サーバーが retryDelay を示したらそれに従う。60秒を超える待ちは諦めて呼び出し元に任せる。
@@ -645,6 +649,7 @@ def write_script_deep(
     review: bool = True,
     retry_wait: float = 10.0,
     pause: float = 7.0,
+    retry_cooldown: float = 90.0,
 ) -> tuple[dict, str, list[str]]:
     """ニュースごとに章を書かせて長い番組にする。LLMが全滅したらテンプレート。
 
@@ -658,24 +663,38 @@ def write_script_deep(
     per_news = max(2.0, (target_minutes - 2.5) / len(articles))
     tmpl = template_script(articles, characters, date_label)
     tmpl_chapters = {ch["source_ids"][0]: ch for ch in tmpl["chapters"] if ch.get("source_ids")}
-    chapters, used, warnings = [], [], []
-    for i, a in enumerate(articles):
-        position = f"放送日: {date_label}。全{len(articles)}本中 {i + 1} 本目" + ("（最初のニュース）" if i == 0 else "（最後のニュース）" if i == len(articles) - 1 else "")
-        ch = None
+    def position_of(i: int) -> str:
+        return f"放送日: {date_label}。全{len(articles)}本中 {i + 1} 本目" + ("（最初のニュース）" if i == 0 else "（最後のニュース）" if i == len(articles) - 1 else "")
+
+    def try_chapter(i: int, a: Article):
         for p in providers:
             try:
-                ch = write_chapter(p, a, characters, per_news, corners, position, log, retry_wait)
-                used.append(p.name)
-                break
+                return write_chapter(p, a, characters, per_news, corners, position_of(i), log, retry_wait), p.name
             except Exception as e:  # noqa: BLE001
                 log(f"[script] {p.name} chapter {i + 1} failed: {e}")
-        if ch is None:
-            ch = dict(tmpl_chapters[a.id])
-            warnings.append(f"chapter {i + 1} はテンプレートで代用")
-            used.append("template")
-        log(f"[script] chapter {i + 1}/{len(articles)} {used[-1]}: {len(ch['lines'])} lines")
-        chapters.append(ch)
+        return None, None
+
+    chapters: list = [None] * len(articles)
+    used: list = [None] * len(articles)
+    warnings = []
+    for i, a in enumerate(articles):
+        chapters[i], used[i] = try_chapter(i, a)
+        log(f"[script] chapter {i + 1}/{len(articles)} {used[i] or '（あとで再挑戦）'}: {len(chapters[i]['lines']) if chapters[i] else 0} lines")
         time.sleep(pause)
+    failed = [i for i, c in enumerate(chapters) if c is None]
+    if failed:
+        # 混雑は数分で落ち着くことが多いので、少し待ってから失敗した章だけもう一度
+        log(f"[script] {len(failed)} 章を {retry_cooldown:.0f} 秒後に再挑戦")
+        time.sleep(retry_cooldown)
+        for i in failed:
+            chapters[i], used[i] = try_chapter(i, articles[i])
+            log(f"[script] chapter {i + 1} retry: {used[i] or 'template'}")
+            time.sleep(pause)
+    for i, a in enumerate(articles):
+        if chapters[i] is None:
+            chapters[i] = dict(tmpl_chapters[a.id])
+            used[i] = "template"
+            warnings.append(f"chapter {i + 1} はテンプレートで代用")
     frame = None
     lineup = [{"title": c["title"], "topic": a.topic} for c, a in zip(chapters, articles)]
     for p in providers:

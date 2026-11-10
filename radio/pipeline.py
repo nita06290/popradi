@@ -41,7 +41,7 @@ def make_providers(mode: str, log) -> list:
     providers = []
     if mode in ("auto", "gemini") and os.environ.get("GEMINI_API_KEY"):
         # GEMINI_MODEL はカンマ区切りで複数指定可（混雑・上限のとき次のモデルへ）
-        for model in [m.strip() for m in os.environ.get("GEMINI_MODEL", "gemini-3.5-flash,gemini-3.5-flash-lite").split(",") if m.strip()]:
+        for model in [m.strip() for m in os.environ.get("GEMINI_MODEL", "gemini-3.5-flash,gemini-3.5-flash-lite,gemini-3.8-flash,gemini-flash-lite-latest").split(",") if m.strip()]:
             providers.append(GeminiProvider(os.environ["GEMINI_API_KEY"], model, name=f"gemini:{model}"))
     if mode in ("auto", "github") and os.environ.get("GITHUB_TOKEN"):
         providers.append(GitHubModelsProvider(os.environ["GITHUB_TOKEN"], os.environ.get("GITHUB_MODEL", "openai/gpt-4.1-mini")))

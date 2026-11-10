@@ -64,7 +64,7 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.5-flash,gemini-3.5-flash-lite' }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.5-flash,gemini-3.5-flash-lite,gemini-3.8-flash,gemini-flash-lite-latest' }}
           VOICEVOX_URL: http://localhost:50021
         run: |
           set -o pipefail  # tee を挟んでも失敗を失敗として扱う（通知のため）
