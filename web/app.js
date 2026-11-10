@@ -86,15 +86,14 @@
     $("epDate").innerHTML = "<b>" + d.md + "</b><span>" + d.wd + "曜</span>";
     $("epTitle").textContent = ep.title;
     $("epSummary").textContent = ep.summary || "";
-    const emoji = topicEmoji();
     const topics = [...new Set(ep.chapters.map((c) => c.topic).filter(Boolean))];
-    $("epTopics").innerHTML = topics.map((t) => '<span class="chip">' + (emoji[t] || "📻") + " " + esc(t) + "</span>").join("");
+    $("epTopics").innerHTML = topics.map((t) => '<span class="chip">' + esc(t) + "</span>").join("");
     $("tDur").textContent = L.formatTime(ep.duration);
     $("markers").innerHTML = L.chapterMarkers(ep.chapters, ep.duration).slice(1).map((m) => '<i style="left:' + m.left + '%"></i>').join("");
 
     $("setlist").innerHTML = ep.chapters.map((c, i) =>
       '<li data-i="' + i + '"><span class="no">' + (i + 1) + '</span><span class="st"><b>' + (c.corner ? '<span class="corner">' + esc(c.corner) + "</span>" : "") + esc(c.title) + "</b><small>" +
-      (c.topic ? (emoji[c.topic] || "📻") + " " + esc(c.topic) : i === 0 ? "🎵 はじまり" : "👋 おわり") +
+      (c.topic ? esc(c.topic) : i === 0 ? "はじまり" : "おわり") +
       '</small></span><span class="tm">' + L.formatTime(c.start) + "</span></li>").join("");
 
     const chapterOf = {};
@@ -110,7 +109,7 @@
         '<a href="' + esc(L.calendarUrl(c.title || s.title, ev, s.url)) + '" target="_blank" rel="noopener noreferrer">📅 カレンダー</a>' +
         "</div></div>" : "";
       return '<div class="src-card"><a class="src" href="' + esc(L.safeUrl(s.url)) + '" target="_blank" rel="noopener noreferrer">' +
-        '<div class="src-top">' + (c.corner ? '<span class="corner">' + esc(c.corner) + "</span>" : '<span class="src-topic">' + (emoji[s.topic] || "📻") + " " + esc(s.topic) + "</span>") +
+        '<div class="src-top">' + (c.corner ? '<span class="corner">' + esc(c.corner) + "</span>" : '<span class="src-topic">' + esc(s.topic) + "</span>") +
         esc(s.source) + '<span class="go" style="margin-left:auto">読む ↗</span></div><b>' + esc(s.title) + "</b></a>" + evHtml +
         ((s.notes && s.notes.length) || (s.related && s.related.length) ? '<div class="refs">' +
           (s.related && s.related.length ? "<span>📰 関連記事 " + s.related.length + "件</span>" : "") +
@@ -137,11 +136,6 @@
       ((ep.sources || []).some((s) => s.notes && s.notes.length) ? "<br>背景情報の一部は Wikipedia（CC BY-SA）を参考にしています。" : "");
   }
 
-  function topicEmoji() {
-    const m = {};
-    (state.station ? state.station.topics : []).forEach((t) => { m[t.name] = t.emoji; });
-    return m;
-  }
 
   function renderArchive() {
     const eps = (state.index && state.index.episodes) || [];
@@ -157,11 +151,6 @@
     }).join("") : '<p class="empty">まだ放送がありません 📭</p>';
   }
 
-  function renderKeywords() {
-    $("topics").innerHTML = state.station.topics.map((t) =>
-      '<div class="card topic"><h3><span>' + L.escapeHtml(t.emoji) + "</span>" + L.escapeHtml(t.name) + '</h3><div class="kw">' +
-      t.keywords.map((k) => "<span>#" + L.escapeHtml(k) + "</span>").join("") + "</div></div>").join("");
-  }
 
   function renderStreak() {
     $("streakNum").textContent = L.computeStreak(store.get("listenedDays", []), L.isoDate(new Date()));
@@ -430,7 +419,7 @@
     const topics = connected && state.kw.cfg ? state.kw.cfg.topics : (state.station ? state.station.topics : []);
     const esc = L.escapeHtml;
     $("topics").innerHTML = topics.map((t, ti) =>
-      '<div class="card topic" data-ti="' + ti + '"><div class="topic-head"><h3><span>' + esc(t.emoji || "📻") + "</span>" + esc(t.name) + "</h3>" +
+      '<div class="card topic" data-ti="' + ti + '"><div class="topic-head"><h3>' + esc(t.name) + "</h3>" +
       (connected ? '<button class="topic-del" data-act="delTopic" aria-label="トピックを削除">🗑</button>' : "") + '</div><div class="kw">' +
       t.keywords.map((k) => '<span class="tag">#' + esc(k) + (connected ? '<button data-act="delKw" data-kw="' + esc(k) + '" aria-label="' + esc(k) + 'を削除">×</button>' : "") + "</span>").join("") +
       (connected ? (state.kw.addingTo === t.name
@@ -487,10 +476,10 @@
   $("btnAddTopic").addEventListener("click", () => { $("addTopicForm").classList.remove("hidden"); $("btnAddTopic").classList.add("hidden"); $("newTopicName").focus(); });
   $("btnTopicCancel").addEventListener("click", () => { $("addTopicForm").classList.add("hidden"); $("btnAddTopic").classList.remove("hidden"); });
   $("btnTopicDone").addEventListener("click", async () => {
-    const name = $("newTopicName").value, kw = $("newTopicKw").value, emoji = $("newTopicEmoji").value;
-    await applyEdit({ type: "addTopic", name: name, keyword: kw, emoji: emoji }, "トピック「" + name.trim() + "」を追加しました");
+    const name = $("newTopicName").value, kw = $("newTopicKw").value;
+    await applyEdit({ type: "addTopic", name: name, keyword: kw }, "トピック「" + name.trim() + "」を追加しました");
     if (state.kw.cfg && state.kw.cfg.topics.some((t) => t.name === name.trim())) {
-      ["newTopicName", "newTopicKw", "newTopicEmoji"].forEach((id) => { $(id).value = ""; });
+      ["newTopicName", "newTopicKw"].forEach((id) => { $(id).value = ""; });
       $("addTopicForm").classList.add("hidden"); $("btnAddTopic").classList.remove("hidden");
     }
   });

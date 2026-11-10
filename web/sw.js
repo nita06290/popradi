@@ -2,7 +2,7 @@
  * アプリ本体・番組データ: ネットワーク優先 → オフライン時はキャッシュ
  * 音声: アプリで「保存」した回はキャッシュから Range 対応で返す（オフライン再生）。それ以外はブラウザに任せる
  */
-const VERSION = "popradi-v5";
+const VERSION = "popradi-v6";
 const AUDIO_CACHE = "popradi-audio";
 const SHELL = ["./", "index.html", "app.css", "app.js", "lib.js", "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png"];
 
