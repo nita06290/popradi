@@ -142,6 +142,10 @@ def run(args) -> dict:
     # LLMが出した固有名詞の読みを、この回だけ読み辞書に足す
     if script.get("readings"):
         reader = Reader({**load_json(ROOT / "config" / "reading_dict.json"), **{r["word"]: r["reading"] for r in script["readings"]}})
+    usage = {p.name: p.usage for p in providers if getattr(p, "usage", None) and p.usage["calls"]}
+    if usage:
+        total = {k: sum(u[k] for u in usage.values()) for k in ("calls", "ok", "prompt_tokens", "output_tokens", "thinking_tokens")}
+        log("[usage] " + json.dumps({"total": total, "by_model": usage}, ensure_ascii=False))
     lines = build_lines(script, reader)
     n_bal = balance_emotions(lines, max_ratio=cfg.get("max_excited_ratio", 0.3))
     if n_bal:
@@ -182,7 +186,7 @@ def run(args) -> dict:
         audio_rel=audio_path.relative_to(site).as_posix(),
         articles=articles,
         characters=chars,
-        generator={"llm": llm_name, "tts": tts.name, "sample": bool(args.sample)},
+        generator={"llm": llm_name, "tts": tts.name, "sample": bool(args.sample), **({"usage": usage} if usage else {})},
         warnings=warnings,
         generated_at=datetime.now(JST),
     )

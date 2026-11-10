@@ -10,7 +10,7 @@ import json
 import random
 import re
 import unicodedata
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Callable, Protocol
 
 from .news import Article
@@ -158,6 +158,13 @@ def validate_script(script: dict, articles: list[Article]) -> tuple[list[str], l
 
 # ---------------------------------------------------------------- providers
 
+def new_usage() -> dict:
+    return {"calls": 0, "ok": 0, "prompt_tokens": 0, "output_tokens": 0, "thinking_tokens": 0, "errors": {}}
+
+
+def _count_error(usage: dict, status: int) -> None:
+    usage["errors"][str(status)] = usage["errors"].get(str(status), 0) + 1
+
 Post = Callable[..., object]
 
 
@@ -173,6 +180,7 @@ class GeminiProvider:
     model: str = "gemini-2.5-flash"
     post: Post = _default_post
     name: str = "gemini"
+    usage: dict = field(default_factory=new_usage)
 
     def generate(self, system: str, user: str) -> str:
         url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}:generateContent"
@@ -182,11 +190,19 @@ class GeminiProvider:
             "generationConfig": {"temperature": 0.9, "responseMimeType": "application/json"},
         }
         body["generationConfig"]["maxOutputTokens"] = 16384
+        self.usage["calls"] += 1
         r = self.post(url, json=body, headers={"x-goog-api-key": self.api_key})
         if r.status_code != 200:
+            _count_error(self.usage, r.status_code)
             raise LLMError(f"gemini HTTP {r.status_code}{_retry_hint(r)}: {r.text[:160]}")
         try:
-            return r.json()["candidates"][0]["content"]["parts"][0]["text"]
+            data = r.json()
+            meta = data.get("usageMetadata") or {}
+            self.usage["ok"] += 1
+            self.usage["prompt_tokens"] += int(meta.get("promptTokenCount", 0))
+            self.usage["output_tokens"] += int(meta.get("candidatesTokenCount", 0))
+            self.usage["thinking_tokens"] += int(meta.get("thoughtsTokenCount", 0))
+            return data["candidates"][0]["content"]["parts"][0]["text"]
         except (KeyError, IndexError) as e:
             raise LLMError(f"gemini 応答形式不正: {e}") from e
 
@@ -197,6 +213,7 @@ class GitHubModelsProvider:
     model: str = "openai/gpt-4.1-mini"
     post: Post = _default_post
     name: str = "github-models"
+    usage: dict = field(default_factory=new_usage)
 
     def generate(self, system: str, user: str) -> str:
         r = self.post(
@@ -209,10 +226,17 @@ class GitHubModelsProvider:
             },
             headers={"Authorization": f"Bearer {self.token}", "Accept": "application/vnd.github+json"},
         )
+        self.usage["calls"] += 1
         if r.status_code != 200:
+            _count_error(self.usage, r.status_code)
             raise LLMError(f"github-models HTTP {r.status_code}: {r.text[:200]}")
         try:
-            return r.json()["choices"][0]["message"]["content"]
+            data = r.json()
+            u = data.get("usage") or {}
+            self.usage["ok"] += 1
+            self.usage["prompt_tokens"] += int(u.get("prompt_tokens", 0))
+            self.usage["output_tokens"] += int(u.get("completion_tokens", 0))
+            return data["choices"][0]["message"]["content"]
         except (KeyError, IndexError) as e:
             raise LLMError(f"github-models 応答形式不正: {e}") from e
 

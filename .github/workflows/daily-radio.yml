@@ -95,6 +95,7 @@ jobs:
       - name: Summary
         if: always()
         run: |
+          python -m tools.usage_summary run.log >> $GITHUB_STEP_SUMMARY 2>/dev/null || true
           echo "## 📻 ポプラジ 放送ログ" >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
           tail -n 20 run.log >> $GITHUB_STEP_SUMMARY 2>/dev/null || true

@@ -221,3 +221,33 @@ def test_transient_error_is_retried_once(articles, characters):
     p2 = Flaky([LLMError("gemini HTTP 400: bad request")])  # 一時的でないエラーは再試行しない
     _, used2, _ = write_script(articles, characters, "x", [p2], log=lambda *_: None, retry_wait=0)
     assert used2 == "template" and p2.calls == 1
+
+
+
+def test_gemini_usage_is_recorded():
+    def post(url, **kw):
+        return FakeResp(200, {"candidates": [{"content": {"parts": [{"text": "{}"}]}}],
+                              "usageMetadata": {"promptTokenCount": 1200, "candidatesTokenCount": 800, "thoughtsTokenCount": 300}})
+
+    p = GeminiProvider("k", post=post)
+    p.generate("s", "u"); p.generate("s", "u")
+    assert p.usage == {"calls": 2, "ok": 2, "prompt_tokens": 2400, "output_tokens": 1600, "thinking_tokens": 600, "errors": {}}
+    bad = GeminiProvider("k", post=lambda url, **kw: FakeResp(429, {"error": {}}))
+    with pytest.raises(LLMError):
+        bad.generate("s", "u")
+    assert bad.usage["calls"] == 1 and bad.usage["ok"] == 0 and bad.usage["errors"] == {"429": 1}
+
+
+def test_github_models_usage_is_recorded():
+    p = GitHubModelsProvider("t", post=lambda url, **kw: FakeResp(200, {"choices": [{"message": {"content": "{}"}}], "usage": {"prompt_tokens": 50, "completion_tokens": 20}}))
+    p.generate("s", "u")
+    assert (p.usage["prompt_tokens"], p.usage["output_tokens"]) == (50, 20)
+
+
+def test_usage_summary_table():
+    from tools.usage_summary import summarize
+
+    log = 'x\n[usage] {"total": {"calls": 3, "ok": 2, "prompt_tokens": 1000, "output_tokens": 500, "thinking_tokens": 0}, "by_model": {"gemini:a": {"calls": 3, "ok": 2, "prompt_tokens": 1000, "output_tokens": 500, "thinking_tokens": 0, "errors": {"503": 1}}}}\n'
+    md = summarize(log)
+    assert "| gemini:a | 3 | 2 | 1,000 | 500 | 0 | 503×1 |" in md and "**合計**" in md
+    assert "記録なし" in summarize("no usage here")
