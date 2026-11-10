@@ -32,7 +32,7 @@ jobs:
         ports:
           - 50021:50021
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # 前日までの放送（gh-pages）を site/ に復元。初回は存在しないので失敗してもOK
       - name: Restore previous broadcasts
@@ -40,7 +40,7 @@ jobs:
           git fetch --depth=1 origin gh-pages && git worktree add site origin/gh-pages || mkdir -p site
           rm -rf site/.git
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
           cache: pip

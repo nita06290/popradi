@@ -368,7 +368,7 @@ def write_script(
                 raise LLMError("検証NG: " + " / ".join(errors[:5]))
             warnings += sanitize_extras(script, articles, corners or DEFAULT_CORNERS)
             if review:
-                warnings += review_script(p, script, articles, log=log)
+                warnings += review_script(p, script, articles, log=log, retry_wait=retry_wait)
             log(f"[script] {p.name} OK ({len(warnings)} warnings)")
             return script, p.name, warnings
         except Exception as e:  # noqa: BLE001 - どんな失敗でも次の手段へ
@@ -450,7 +450,7 @@ REVIEW_SYSTEM = """あなたはラジオ台本のファクトチェッカーで�
 問題が無ければ {"issues": []}。"""
 
 
-def review_script(provider, script: dict, articles: list[Article], log=print, max_fixes: int = 12) -> list[str]:
+def review_script(provider, script: dict, articles: list[Article], log=print, max_fixes: int = 12, retry_wait: float = 8.0) -> list[str]:
     """LLMで台本を照合し、裏付けのない断定を書き直す（script をその場で更新）。warnings を返す。"""
     payload_articles = [{"id": a.id, "title": a.title, "description": a.description} for a in articles]
     payload_script = [
@@ -463,7 +463,7 @@ def review_script(provider, script: dict, articles: list[Article], log=print, ma
         f"<script>\n{json.dumps(payload_script, ensure_ascii=False)}\n</script>"
     )
     try:
-        result = extract_json(provider.generate(REVIEW_SYSTEM, user))
+        result = extract_json(_generate_with_retry(provider, REVIEW_SYSTEM, user, log, retry_wait))
     except Exception as e:  # noqa: BLE001 - チェックに失敗しても放送は止めない
         log(f"[review] skipped: {e}")
         return ["事実チェックを実行できませんでした"]

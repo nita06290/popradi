@@ -261,3 +261,24 @@ def test_updating_existing_topic_keeps_region_filter(topics_cfg):
     region = list(art["region_any"])
     apply(cfg, parse_form(BODY.replace("東京周辺の美術イベント", art["name"])))
     assert art["keywords"] == ["美術展 東京", "展覧会 東京", "写真展 東京"] and art["region_any"] == region
+
+
+def test_review_retries_transient_error(exhibit):
+    """2026-11-10 の初回放送: 事実チェックだけ Gemini の 503 で省略された。"""
+    from radio.script import LLMError
+
+    class Busy:
+        name = "busy"
+
+        def __init__(self):
+            self.calls = 0
+
+        def generate(self, system, user):
+            self.calls += 1
+            if self.calls == 1:
+                raise LLMError("gemini HTTP 503: overloaded")
+            return '{"issues": []}'
+
+    p = Busy()
+    warnings = review_script(p, script_with({}), [exhibit], log=lambda *_: None, retry_wait=0)
+    assert warnings == [] and p.calls == 2
