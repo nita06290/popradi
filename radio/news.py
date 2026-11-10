@@ -44,6 +44,12 @@ class Article:
     id: str = ""
     score: float = 0.0
     keywords_hit: list[str] = field(default_factory=list)
+    related: list[str] = field(default_factory=list)  # 同じニュースの別媒体の見出し（深掘りの材料）
+    notes: list[dict] = field(default_factory=list)  # 背景メモ {"text", "source", "url"}
+
+    def fact_text(self) -> str:
+        """台本の事実チェックで「記事に書いてある」とみなす範囲。"""
+        return " ".join([self.title, self.description, self.source, *self.related, *(n["text"] for n in self.notes)])
 
     def to_dict(self) -> dict:
         d = asdict(self)
@@ -186,11 +192,20 @@ def dedupe(articles: Iterable[Article], seen_urls: set[str] | None = None, seen_
     """
     seen_urls = set(seen_urls or ())
     kept: list[Article] = []
-    kept_titles: list[str] = list(seen_titles)
+    prior = list(seen_titles)
+    kept_titles: list[str] = []
     for a in articles:
         cu = canonical_url(a.url)
         nt = normalize_title(a.title, a.source)
-        if cu in seen_urls or any(is_similar(nt, t) for t in kept_titles):
+        if cu in seen_urls or any(is_similar(nt, t) for t in prior):
+            continue
+        dup = next((i for i, t in enumerate(kept_titles) if is_similar(nt, t)), None)
+        if dup is not None:
+            # 別媒体の同じニュースは捨てずに「関連見出し」として残す（見出しごとに違う事実が載っている）
+            k = kept[dup]
+            label = f"{a.title}（{a.source}）"
+            if a.title != k.title and len(k.related) < 5 and label not in k.related:
+                k.related.append(label)
             continue
         seen_urls.add(cu)
         kept_titles.append(nt)
@@ -209,14 +224,26 @@ def relevance_terms(topic: dict) -> list[str]:
     return terms
 
 
+# 「東京喰種」のような作品名の「東京」ではなく、場所としての東京か
+TOKYO_PLACE_RE = re.compile(r"東京(?=[・、。\s（(）)]|で|の|に|から|都|会場|駅|$)")
+
+
 def in_region(a: Article, topic: dict) -> bool:
     region = topic.get("region_any")
     if not region:
         return True
     text = f"{a.title} {a.description}"
+    if any(x in a.title for x in topic.get("exclude_any", [])):
+        # 除外地域（京都・福岡など）が見出しにある → 場所としての東京周辺がはっきり書かれているときだけ残す
+        strong = [x for x in region if x != "東京"]
+        return bool(TOKYO_PLACE_RE.search(a.title)) or any(x in a.title for x in strong)
     if any(x in text for x in topic.get("exclude_any", [])) and not any(x in a.title for x in region):
         return False
-    return any(x in text for x in region)
+    hits = [x for x in region if x in text]
+    if hits == ["東京"]:
+        # 一致したのが「東京」だけなら、作品名（東京喰種など）ではなく場所としての東京であること
+        return bool(TOKYO_PLACE_RE.search(text))
+    return bool(hits)
 
 
 def score_article(a: Article, keywords: list[str], now: datetime) -> float:

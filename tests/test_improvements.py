@@ -282,3 +282,14 @@ def test_review_retries_transient_error(exhibit):
     p = Busy()
     warnings = review_script(p, script_with({}), [exhibit], log=lambda *_: None, retry_wait=0)
     assert warnings == [] and p.calls == 2
+
+
+
+def test_review_gets_broadcast_date_and_suspicious_lines(exhibit):
+    s = script_with({})
+    p = ReviewProvider('{"issues": []}')
+    review_script(p, s, [exhibit], log=lambda *_: None, date_label="11月10日 火曜日",
+                  suspicious=["chapter[1].lines[0]"])
+    _, user = p.calls[0]
+    assert "放送日（事実として扱ってよい）: 11月10日 火曜日" in user
+    assert "<suspicious>" in user and "chapter[1].lines[0]" in user

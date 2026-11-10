@@ -127,7 +127,72 @@
     return SLEEP_STEPS[(i + 1) % SLEEP_STEPS.length];
   }
 
-  const api = { SPEEDS, mapsUrl, calendarUrl, SLEEP_STEPS, nextSleep, formatTime, findLineIndex, isSpeaking, findChapterIndex, nextSpeed, clamp, chapterMarkers,
+  /** GitHub Pages の URL からリポジトリを推測（owner.github.io/repo/） */
+  function repoFromLocation(hostname, pathname) {
+    const m = /^([^.]+)\.github\.io$/i.exec(hostname || "");
+    if (!m) return null;
+    const repo = (pathname || "/").split("/").filter(Boolean)[0];
+    return repo ? { owner: m[1], repo: repo } : { owner: m[1], repo: m[1] + ".github.io" };
+  }
+
+  /** UTF-8 文字列 ⇔ base64（GitHub Contents API 用。日本語を壊さない） */
+  function utf8ToB64(s) {
+    const bytes = new TextEncoder().encode(s);
+    let bin = "";
+    for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000));
+    return btoa(bin);
+  }
+  function b64ToUtf8(b64) {
+    const bin = atob(String(b64).replace(/\s/g, ""));
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+    return new TextDecoder().decode(bytes);
+  }
+
+  /** キーワード編集のルール（失敗時は Error を投げる。cfg は変更済みのコピーを返す） */
+  const MAX_TOPICS = 8, MAX_KEYWORDS = 10;
+  function cleanWord(s, max) {
+    const v = String(s || "").replace(/[\u0000-\u001f]/g, "").replace(/\s+/g, " ").trim();
+    if (!v) throw new Error("空っぽだよ");
+    if (v.length > max) throw new Error(max + "文字までにしてね");
+    return v;
+  }
+  function editTopics(cfg, op) {
+    const c = JSON.parse(JSON.stringify(cfg));
+    c.topics = c.topics || [];
+    const t = c.topics.find((x) => x.name === op.topic);
+    if (op.type === "addKeyword") {
+      if (!t) throw new Error("トピックが見つからないよ");
+      const kw = cleanWord(op.keyword, 40);
+      if (t.keywords.includes(kw)) throw new Error("もう入ってるよ");
+      if (t.keywords.length >= MAX_KEYWORDS) throw new Error("キーワードは" + MAX_KEYWORDS + "個までだよ");
+      t.keywords.push(kw);
+    } else if (op.type === "removeKeyword") {
+      if (!t) throw new Error("トピックが見つからないよ");
+      if (t.keywords.length <= 1) throw new Error("最後のキーワードは消せないよ（トピックごと消してね）");
+      t.keywords = t.keywords.filter((k) => k !== op.keyword);
+    } else if (op.type === "addTopic") {
+      const name = cleanWord(op.name, 30);
+      if (c.topics.some((x) => x.name === name)) throw new Error("同じ名前のトピックがあるよ");
+      if (c.topics.length >= MAX_TOPICS) throw new Error("トピックは" + MAX_TOPICS + "個までだよ");
+      c.topics.push({ name: name, emoji: (String(op.emoji || "").trim() || "📻").slice(0, 4), keywords: [cleanWord(op.keyword, 40)], max: 1 });
+    } else if (op.type === "removeTopic") {
+      if (!t) throw new Error("トピックが見つからないよ");
+      if (c.topics.length <= 1) throw new Error("最後のトピックは消せないよ");
+      c.topics = c.topics.filter((x) => x !== t);
+    } else {
+      throw new Error("unknown op");
+    }
+    return c;
+  }
+
+  /** 更新の進み具合（経過秒 → 0〜95%）。完了するまで100%にはしない */
+  function buildProgress(elapsedSec, expectedSec) {
+    if (!(elapsedSec > 0)) return 3;
+    return Math.min(95, Math.round(3 + 92 * (1 - Math.exp(-elapsedSec / Math.max(60, expectedSec / 2)))));
+  }
+
+  const api = { repoFromLocation, utf8ToB64, b64ToUtf8, editTopics, buildProgress, MAX_TOPICS, MAX_KEYWORDS, SPEEDS, mapsUrl, calendarUrl, SLEEP_STEPS, nextSleep, formatTime, findLineIndex, isSpeaking, findChapterIndex, nextSpeed, clamp, chapterMarkers,
     prevChapterTime, nextChapterTime, resumePosition, computeStreak, isoDate, dateLabel, greeting, escapeHtml, safeUrl };
   root.PopLib = api;
   if (typeof module !== "undefined") module.exports = api;

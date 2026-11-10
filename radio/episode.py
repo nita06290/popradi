@@ -62,7 +62,8 @@ def build_episode(
         "chapters": chapters,
         "lines": lines,
         "sources": [
-            {"id": a.id, "title": a.title, "source": a.source, "url": a.url, "topic": a.topic, "published_at": a.published_at.isoformat()}
+            {"id": a.id, "title": a.title, "source": a.source, "url": a.url, "topic": a.topic, "published_at": a.published_at.isoformat(),
+             "related": a.related, "notes": [{"source": n["source"], "url": n["url"]} for n in a.notes]}
             for a in articles
         ],
         "readings": script.get("readings", []),

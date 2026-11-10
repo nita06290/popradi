@@ -30,7 +30,7 @@
       $("epSummary").textContent = "最初の放送は明日の朝5時ごろ。お楽しみに！";
       state.index = { episodes: [] };
     }
-    if (state.station) renderKeywords();
+    renderKeywords();
     renderArchive();
     window.addEventListener("hashchange", route);
     await route();
@@ -63,7 +63,7 @@
     renderEpisode();
     if (ep.audio) {
       audio.src = ep.audio;
-      audio.playbackRate = store.get("speed", 1.0);
+      audio.playbackRate = 1.0;
       const saved = L.resumePosition(store.get("pos:" + ep.id, 0), ep.duration);
       $("btnResume").classList.toggle("hidden", !saved);
       $("btnResume").textContent = "⏩ 続きから " + L.formatTime(saved);
@@ -78,7 +78,6 @@
     $("miniTitle").textContent = ep.title;
     sync(0);
     setupMediaSession();
-    refreshSaved();
   }
 
   // ------------------------------------------------------------ render
@@ -112,7 +111,11 @@
         "</div></div>" : "";
       return '<div class="src-card"><a class="src" href="' + esc(L.safeUrl(s.url)) + '" target="_blank" rel="noopener noreferrer">' +
         '<div class="src-top">' + (c.corner ? '<span class="corner">' + esc(c.corner) + "</span>" : '<span class="src-topic">' + (emoji[s.topic] || "📻") + " " + esc(s.topic) + "</span>") +
-        esc(s.source) + '<span class="go" style="margin-left:auto">読む ↗</span></div><b>' + esc(s.title) + "</b></a>" + evHtml + "</div>";
+        esc(s.source) + '<span class="go" style="margin-left:auto">読む ↗</span></div><b>' + esc(s.title) + "</b></a>" + evHtml +
+        ((s.notes && s.notes.length) || (s.related && s.related.length) ? '<div class="refs">' +
+          (s.related && s.related.length ? "<span>📰 関連記事 " + s.related.length + "件</span>" : "") +
+          (s.notes || []).map((n) => '<a href="' + esc(L.safeUrl(n.url)) + '" target="_blank" rel="noopener noreferrer">📖 ' + esc(n.source) + "</a>").join("") +
+          "</div>" : "") + "</div>";
     }).join("") + "</div>"
       : '<p class="empty">ニュース元はありません</p>';
 
@@ -130,7 +133,8 @@
       (ep.generator && ep.generator.sample ? '<span class="sample-badge">サンプルデータの放送です</span><br>' : "") +
       "台本: " + esc(ep.generator ? ep.generator.llm : "-") + " / 音声: " + esc(ep.generator ? ep.generator.tts : "-") +
       (credits.length ? "<br>音声クレジット: " + credits.map(esc).join(" / ") : "") +
-      "<br>ニュースの内容は各記事の見出し・説明文をもとにAIが紹介しています。正確な情報は元記事で確認してね。";
+      "<br>ニュースの内容は各記事の見出し・説明文をもとにAIが紹介しています。正確な情報は元記事で確認してね。" +
+      ((ep.sources || []).some((s) => s.notes && s.notes.length) ? "<br>背景情報の一部は Wikipedia（CC BY-SA）を参考にしています。" : "");
   }
 
   function topicEmoji() {
@@ -164,7 +168,7 @@
   }
 
   function setDisabled(dis) {
-    ["btnPlay", "btnBack", "btnFwd", "btnPrev", "btnNext", "btnSpeed"].forEach((id) => { $(id).disabled = dis; $(id).style.opacity = dis ? .45 : 1; });
+    ["btnPlay", "btnBack", "btnFwd", "btnPrev", "btnNext", "volume"].forEach((id) => { $(id).disabled = dis; $(id).style.opacity = dis ? .45 : 1; });
   }
 
   // ------------------------------------------------------------ sync (字幕・キャラ・進捗)
@@ -236,7 +240,6 @@
     const box = $("transcript");
     const open = typeof force === "boolean" ? force : box.classList.contains("hidden");
     box.classList.toggle("hidden", !open);
-    $("btnTranscript").setAttribute("aria-expanded", String(open));
     if (open) scrollTranscriptToNow();
   }
   function scrollTranscriptToNow() {
@@ -245,21 +248,31 @@
     const rb = row.getBoundingClientRect(), bb = box.getBoundingClientRect();
     box.scrollTop += rb.top - bb.top - box.clientHeight / 2 + rb.height / 2;
   }
-  function setSpeed(s) {
-    audio.playbackRate = s; store.set("speed", s);
-    $("btnSpeed").textContent = (s < 1 ? "🐢 " : s > 1.3 ? "🚀 " : s > 1 ? "🐇 " : "🚶 ") + s.toFixed(s % 1 ? 2 : 1).replace(/0$/, "") + "x";
+  // ------------------------------------------------------------ 音量
+  function setVolume(v) {
+    v = L.clamp(+v, 0, 1);
+    audio.volume = v;
+    $("volume").value = v;
+    $("volume").style.setProperty("--vol", Math.round(v * 100) + "%");
+    store.set("volume", v);
   }
+  function initVolume() {
+    // iPhone/iPad は JavaScript から音量を変えられない（本体ボタンのみ）ので、その場合はバーを隠す
+    const probe = new Audio();
+    probe.volume = 0.5;
+    const supported = Math.abs(probe.volume - 0.5) < 0.01;
+    $("volumeWrap").classList.toggle("hidden", !supported);
+    $("volumeNote").classList.toggle("hidden", supported);
+    if (supported) setVolume(store.get("volume", 1));
+  }
+  $("volume").addEventListener("input", (e) => setVolume(e.target.value));
 
   $("btnPlay").addEventListener("click", togglePlay);
   $("miniPlay").addEventListener("click", togglePlay);
-  $("btnSleep").addEventListener("click", () => setSleep(L.nextSleep(state.sleepMin || 0)));
-  $("btnSave").addEventListener("click", saveOffline);
   $("btnBack").addEventListener("click", () => seek(audio.currentTime - 15));
   $("btnFwd").addEventListener("click", () => seek(audio.currentTime + 15));
   $("btnPrev").addEventListener("click", () => state.ep && seek(L.prevChapterTime(state.ep.chapters, audio.currentTime)));
   $("btnNext").addEventListener("click", () => state.ep && seek(L.nextChapterTime(state.ep.chapters, audio.currentTime, state.ep.duration)));
-  $("btnSpeed").addEventListener("click", () => setSpeed(L.nextSpeed(audio.playbackRate)));
-  $("btnTranscript").addEventListener("click", () => toggleTranscript());
   $("btnResume").addEventListener("click", (e) => { seek(+e.currentTarget.dataset.t); e.currentTarget.classList.add("hidden"); audio.play().catch(() => {}); });
   $("setlist").addEventListener("click", (e) => {
     const li = e.target.closest("li"); if (!li || !state.ep) return;
@@ -295,7 +308,6 @@
     cancelAnimationFrame(state.raf); sync(audio.currentTime);
     if (state.ep) store.set("pos:" + state.ep.id, audio.currentTime);
   });
-  audio.addEventListener("ratechange", () => setSpeed(audio.playbackRate));
   audio.addEventListener("timeupdate", () => { if (audio.paused) sync(audio.currentTime); });
   audio.addEventListener("ended", onEnded);
   audio.addEventListener("error", () => { if (state.ep && state.ep.audio) toast("音声を読み込めませんでした 📡"); });
@@ -338,63 +350,210 @@
     document.body.classList.toggle("has-mini", show);
   }
 
-  // ------------------------------------------------------------ スリープタイマー
-  function setSleep(min) {
-    clearInterval(state.sleepTimer);
-    state.sleepMin = min;
-    state.sleepUntil = min ? Date.now() + min * 60000 : 0;
-    const btn = $("btnSleep");
-    btn.classList.toggle("on", !!min);
-    if (!min) { btn.textContent = "😴 タイマー"; return; }
-    toast("😴 " + min + "分後に止めるね");
-    const tick = () => {
-      const left = state.sleepUntil - Date.now();
-      if (left <= 0) {
-        clearInterval(state.sleepTimer);
-        let v = 1;  // 5秒かけて小さくしてから止める
-        const fade = setInterval(() => {
-          v -= 0.1; audio.volume = Math.max(0, v);
-          if (v <= 0) { clearInterval(fade); audio.pause(); audio.volume = 1; setSleep(0); toast("おやすみなさい 🌙"); }
-        }, 500);
-        return;
-      }
-      btn.textContent = "😴 " + L.formatTime(left / 1000);
-    };
-    tick();
-    state.sleepTimer = setInterval(tick, 1000);
-  }
-  window.__popradiSetSleep = setSleep;  // E2E検証用
 
-  // ------------------------------------------------------------ オフライン保存
-  const AUDIO_CACHE = "popradi-audio";
-  async function refreshSaved() {
-    const btn = $("btnSave");
-    if (!("caches" in window) || !state.ep || !state.ep.audio) { btn.classList.add("hidden"); return; }
-    btn.classList.remove("hidden");
-    let hit = null;
-    try { hit = await (await caches.open(AUDIO_CACHE)).match(new URL(state.ep.audio, location.href).href); } catch (e) { /* noop */ }
-    btn.classList.toggle("saved", !!hit);
-    btn.textContent = hit ? "✅ 保存済み" : "⬇️ 保存";
+  // ------------------------------------------------------------ GitHub 連携（キーワード編集・今すぐ更新）
+  const GH_API = "https://api.github.com";
+  const WORKFLOW = "daily-radio.yml";
+  const gh = {
+    repo() {
+      return store.get("ghRepo", null) || L.repoFromLocation(location.hostname, location.pathname) || { owner: "nita06290", repo: "popradi" };
+    },
+    token() { return store.get("ghToken", ""); },
+    async call(path, opts) {
+      const r = await fetch(GH_API + path, Object.assign({}, opts, {
+        headers: Object.assign({ Accept: "application/vnd.github+json", Authorization: "Bearer " + gh.token(), "X-GitHub-Api-Version": "2022-11-28" }, (opts && opts.headers) || {}),
+      }));
+      if (r.status === 401) throw new Error("トークンが無効か期限切れみたい（⚙️から設定し直してね）");
+      if (r.status === 403 || r.status === 404) throw new Error("権限が足りないみたい（Contents と Actions を Read and write にしてね）");
+      if (!r.ok) throw new Error("GitHub エラー " + r.status);
+      return r.status === 204 ? null : r.json();
+    },
+    path() { const { owner, repo } = gh.repo(); return "/repos/" + encodeURIComponent(owner) + "/" + encodeURIComponent(repo); },
+    async loadTopics() {
+      const f = await gh.call(gh.path() + "/contents/config/topics.json?ref=main");
+      return { cfg: JSON.parse(L.b64ToUtf8(f.content)), sha: f.sha };
+    },
+    async saveTopics(cfg, sha, message) {
+      const body = { message: message, content: L.utf8ToB64(JSON.stringify(cfg, null, 2) + "\n"), sha: sha, branch: "main" };
+      const r = await gh.call(gh.path() + "/contents/config/topics.json", { method: "PUT", body: JSON.stringify(body) });
+      return r.content.sha;
+    },
+    async dispatch() {
+      await gh.call(gh.path() + "/actions/workflows/" + WORKFLOW + "/dispatches", { method: "POST", body: JSON.stringify({ ref: "main" }) });
+    },
+    async latestRun() {
+      const r = await gh.call(gh.path() + "/actions/workflows/" + WORKFLOW + "/runs?per_page=1");
+      return r.workflow_runs[0] || null;
+    },
+  };
+
+  // ---- 設定シート
+  function openSheet() {
+    const { owner, repo } = gh.repo();
+    $("repoName").textContent = repo;
+    $("tokenInput").value = "";
+    $("ghStatus").textContent = gh.token() ? "✅ 連携中（" + owner + "/" + repo + "）" : "まだ連携していません";
+    $("ghStatus").classList.toggle("ok", !!gh.token());
+    $("btnDisconnect").classList.toggle("hidden", !gh.token());
+    $("sheet").classList.remove("hidden");
   }
-  async function saveOffline() {
-    if (!state.ep || !state.ep.audio || !("caches" in window)) return;
-    const btn = $("btnSave");
-    if (btn.classList.contains("saved")) { toast("この回はオフラインでも聴けます ✅"); return; }
-    btn.textContent = "⏳ 保存中…";
+  function closeSheet() { $("sheet").classList.add("hidden"); }
+  $("btnSettings").addEventListener("click", openSheet);
+  $("btnConnect").addEventListener("click", openSheet);
+  $("btnSheetClose").addEventListener("click", closeSheet);
+  $("sheet").addEventListener("click", (e) => { if (e.target === $("sheet")) closeSheet(); });
+  $("btnDisconnect").addEventListener("click", () => {
+    store.set("ghToken", ""); toast("連携を解除しました"); closeSheet(); renderKeywords();
+  });
+  $("btnTokenSave").addEventListener("click", async () => {
+    const t = $("tokenInput").value.trim();
+    if (!t) { toast("トークンを貼り付けてね"); return; }
+    const prev = gh.token();
+    store.set("ghToken", t);
     try {
-      const url = new URL(state.ep.audio, location.href).href;
-      const res = await fetch(url, { cache: "no-store" });
-      if (!res.ok) throw new Error(String(res.status));
-      const cache = await caches.open(AUDIO_CACHE);
-      await cache.put(url, res);
-      const keys = await cache.keys();  // 容量節約: 新しい3回分まで
-      for (const k of keys.slice(0, Math.max(0, keys.length - 3))) await cache.delete(k);
-      toast("📥 保存しました。電波がなくても聴けます");
+      await gh.loadTopics();
+      toast("🔗 連携できました！");
+      closeSheet();
+      await renderKeywords(true);
     } catch (e) {
-      toast("保存できませんでした 🙇");
+      store.set("ghToken", prev);
+      toast("連携できませんでした: " + e.message);
     }
-    refreshSaved();
+  });
+
+  // ---- キーワード編集
+  state.kw = { cfg: null, sha: null, busy: false, addingTo: null };
+  async function renderKeywords(reload) {
+    const connected = !!gh.token();
+    $("connectCard").classList.toggle("hidden", connected);
+    $("btnAddTopic").classList.toggle("hidden", !connected);
+    $("kwHint").textContent = connected ? "タグの × で削除、＋ で追加。変更は次の更新から反映されます。" : "毎朝このキーワードでニュースを集めて番組にしています。";
+    if (connected && (reload || !state.kw.cfg)) {
+      try { Object.assign(state.kw, await gh.loadTopics()); }
+      catch (e) { toast(e.message); }
+    }
+    const topics = connected && state.kw.cfg ? state.kw.cfg.topics : (state.station ? state.station.topics : []);
+    const esc = L.escapeHtml;
+    $("topics").innerHTML = topics.map((t, ti) =>
+      '<div class="card topic" data-ti="' + ti + '"><div class="topic-head"><h3><span>' + esc(t.emoji || "📻") + "</span>" + esc(t.name) + "</h3>" +
+      (connected ? '<button class="topic-del" data-act="delTopic" aria-label="トピックを削除">🗑</button>' : "") + '</div><div class="kw">' +
+      t.keywords.map((k) => '<span class="tag">#' + esc(k) + (connected ? '<button data-act="delKw" data-kw="' + esc(k) + '" aria-label="' + esc(k) + 'を削除">×</button>' : "") + "</span>").join("") +
+      (connected ? (state.kw.addingTo === t.name
+        ? '<div class="kw-form"><input data-role="kwInput" maxlength="40" placeholder="例: 美術展 横浜" aria-label="追加するキーワード"><button class="pill primary" data-act="kwDone">完了</button></div>'
+        : '<button class="add" data-act="addKw">＋</button>') : "") +
+      "</div></div>").join("");
+    const input = $("topics").querySelector('[data-role="kwInput"]');
+    if (input) input.focus();
   }
+
+  async function applyEdit(op, okMsg) {
+    if (state.kw.busy) return;
+    let next;
+    try { next = L.editTopics(state.kw.cfg, op); } catch (e) { toast(e.message); return; }
+    state.kw.busy = true;
+    document.querySelectorAll(".topic").forEach((n) => n.classList.add("saving"));
+    try {
+      state.kw.sha = await gh.saveTopics(next, state.kw.sha, "キーワード変更（アプリから）: " + okMsg);
+      state.kw.cfg = next;
+      toast("✅ " + okMsg + "。次の更新から反映されます");
+    } catch (e) {
+      toast("保存できませんでした: " + e.message);
+      try { Object.assign(state.kw, await gh.loadTopics()); } catch (e2) { /* noop */ }
+    }
+    state.kw.busy = false;
+    state.kw.addingTo = null;
+    renderKeywords();
+  }
+
+  $("topics").addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-act]"); if (!btn) return;
+    const card = btn.closest(".topic"); const topic = state.kw.cfg.topics[+card.dataset.ti];
+    const act = btn.dataset.act;
+    if (act === "addKw") { state.kw.addingTo = topic.name; renderKeywords(); }
+    else if (act === "kwDone") {
+      const v = card.querySelector('[data-role="kwInput"]').value;
+      if (!v.trim()) { state.kw.addingTo = null; renderKeywords(); return; }
+      applyEdit({ type: "addKeyword", topic: topic.name, keyword: v }, "「" + v.trim() + "」を追加しました");
+    }
+    else if (act === "delKw") applyEdit({ type: "removeKeyword", topic: topic.name, keyword: btn.dataset.kw }, "「" + btn.dataset.kw + "」を削除しました");
+    else if (act === "delTopic") {
+      if (!window.confirm("トピック「" + topic.name + "」を削除しますか？")) return;
+      applyEdit({ type: "removeTopic", topic: topic.name }, "トピック「" + topic.name + "」を削除しました");
+    }
+  });
+  $("topics").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && e.target.dataset.role === "kwInput") { e.preventDefault(); e.target.closest(".topic").querySelector('[data-act="kwDone"]').click(); }
+  });
+  $("btnAddTopic").addEventListener("click", () => { $("addTopicForm").classList.remove("hidden"); $("btnAddTopic").classList.add("hidden"); $("newTopicName").focus(); });
+  $("btnTopicCancel").addEventListener("click", () => { $("addTopicForm").classList.add("hidden"); $("btnAddTopic").classList.remove("hidden"); });
+  $("btnTopicDone").addEventListener("click", async () => {
+    const name = $("newTopicName").value, kw = $("newTopicKw").value, emoji = $("newTopicEmoji").value;
+    await applyEdit({ type: "addTopic", name: name, keyword: kw, emoji: emoji }, "トピック「" + name.trim() + "」を追加しました");
+    if (state.kw.cfg && state.kw.cfg.topics.some((t) => t.name === name.trim())) {
+      ["newTopicName", "newTopicKw", "newTopicEmoji"].forEach((id) => { $(id).value = ""; });
+      $("addTopicForm").classList.add("hidden"); $("btnAddTopic").classList.remove("hidden");
+    }
+  });
+
+  // ---- 今すぐ更新
+  const EXPECTED_SEC = 15 * 60;
+  async function startRefresh() {
+    if (!gh.token()) { toast("今すぐ更新するには、キーワード画面の ⚙️ でGitHubと連携してね"); location.hash = "#/keywords"; return; }
+    if (state.building) { toast("いま作っているところだよ 📻"); return; }
+    if (!window.confirm("今の最新ニュースで番組を作り直しますか？（15分くらいかかります）")) return;
+    try {
+      const before = await gh.latestRun();
+      await gh.dispatch();
+      state.building = { since: Date.now(), prevRunId: before ? before.id : 0, runId: 0 };
+      store.set("building", state.building);
+      showBuilding();
+      toast("🔄 番組づくりを始めました");
+    } catch (e) { toast("開始できませんでした: " + e.message); }
+  }
+  function showBuilding() {
+    const b = state.building;
+    $("building").classList.toggle("hidden", !b);
+    $("btnRefresh").classList.toggle("spin", !!b);
+    if (!b) return;
+    const sec = (Date.now() - b.since) / 1000;
+    $("buildingFill").style.width = L.buildProgress(sec, EXPECTED_SEC) + "%";
+    $("buildingSub").textContent = b.phase === "publish" ? "できあがり！公開の準備中…" : "ニュース集め → 台本 → 音声（" + L.formatTime(sec) + " 経過・目安15分）";
+    clearTimeout(state.buildTimer);
+    state.buildTimer = setTimeout(pollBuilding, 15000);
+  }
+  async function pollBuilding() {
+    const b = state.building; if (!b) return;
+    try {
+      if (b.phase !== "publish") {
+        const run = await gh.latestRun();
+        if (run && run.id !== b.prevRunId) {
+          b.runId = run.id;
+          if (run.status === "completed") {
+            if (run.conclusion !== "success") { finishBuilding(false); return; }
+            b.phase = "publish"; b.doneAt = Date.now();
+          }
+        }
+      } else {
+        // gh-pages の公開を待って新しい回を読み込む
+        const idx = await getJSON("episodes/index.json?t=" + Date.now());
+        const top = idx.episodes[0];
+        const ep = top ? await getJSON("episodes/" + top.id + ".json?t=" + Date.now()) : null;
+        if (ep && new Date(ep.generated_at).getTime() > b.since) { state.index = idx; finishBuilding(true, ep.id); return; }
+        if (Date.now() - b.doneAt > 10 * 60000) { finishBuilding(true); return; }
+      }
+    } catch (e) { /* 通信エラーは次の確認で */ }
+    store.set("building", b);
+    showBuilding();
+  }
+  function finishBuilding(ok, epId) {
+    state.building = null; store.set("building", null);
+    clearTimeout(state.buildTimer); showBuilding();
+    if (!ok) { toast("番組づくりに失敗しました 🙇 GitHubの通知を確認してね"); return; }
+    toast("🎉 新しい番組ができました！");
+    renderArchive();
+    if (epId) { state.ep = null; openEpisode(epId); }
+  }
+  $("btnRefresh").addEventListener("click", startRefresh);
 
   // ------------------------------------------------------------ fun
   let toastTimer = 0;
@@ -424,7 +583,10 @@
     })();
   }
 
-  setSpeed(store.get("speed", 1.0));
+  initVolume();
+  state.building = store.get("building", null);
+  if (state.building && Date.now() - state.building.since > 60 * 60000) { state.building = null; store.set("building", null); }
+  if (state.building) showBuilding();
   if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
     navigator.serviceWorker.register("sw.js").catch(() => {});
   }

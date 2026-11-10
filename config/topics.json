@@ -2,10 +2,10 @@
   "_comment": "毎朝の番組で取り上げるトピック。キーワードは Google News を 'キーワード when:1d' で検索。max=1回に入れる最大本数。region_any を書くと地域で絞り込み",
   "lookback_hours": 36,
   "max_per_topic": 2,
-  "max_total": 6,
+  "max_total": 9,
   "minutes": {
-    "weekday": 5,
-    "weekend": 8
+    "weekday": 30,
+    "weekend": 30
   },
   "max_excited_ratio": 0.3,
   "corners": [
@@ -106,7 +106,7 @@
         "広島",
         "仙台"
       ],
-      "max": 3
+      "max": 5
     },
     {
       "name": "生成AI",

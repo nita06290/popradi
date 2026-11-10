@@ -23,7 +23,8 @@ from .episode import build_episode, build_lines, prune_and_index, seen_keys, wri
 from .news import collect, http_fetch, sample_fetcher
 from .prosody import balance_emotions
 from .reading import Reader
-from .script import GeminiProvider, GitHubModelsProvider, OllamaProvider, write_script
+from .research import enrich
+from .script import GeminiProvider, GitHubModelsProvider, OllamaProvider, write_script, write_script_deep
 from .tts import CoeiroinkTTS, SilentTTS, TTSItem, VoicevoxTTS, WindowsTTS
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -39,7 +40,9 @@ def make_providers(mode: str, log) -> list:
         return []
     providers = []
     if mode in ("auto", "gemini") and os.environ.get("GEMINI_API_KEY"):
-        providers.append(GeminiProvider(os.environ["GEMINI_API_KEY"], os.environ.get("GEMINI_MODEL", "gemini-3.5-flash")))
+        # GEMINI_MODEL はカンマ区切りで複数指定可（混雑・上限のとき次のモデルへ）
+        for model in [m.strip() for m in os.environ.get("GEMINI_MODEL", "gemini-3.5-flash,gemini-3.5-flash-lite").split(",") if m.strip()]:
+            providers.append(GeminiProvider(os.environ["GEMINI_API_KEY"], model, name=f"gemini:{model}"))
     if mode in ("auto", "github") and os.environ.get("GITHUB_TOKEN"):
         providers.append(GitHubModelsProvider(os.environ["GITHUB_TOKEN"], os.environ.get("GITHUB_MODEL", "openai/gpt-4.1-mini")))
     if mode in ("auto", "ollama") and os.environ.get("OLLAMA_URL"):
@@ -123,10 +126,19 @@ def run(args) -> dict:
     date_label = f"{today.month}月{today.day}日 {WEEKDAYS[today.weekday()]}曜日"
     weekend = today.weekday() >= 5
     minutes = cfg.get("minutes", {}).get("weekend" if weekend else "weekday", 8)
-    script, llm_name, warnings = write_script(
-        articles, chars, date_label, make_providers(args.llm, log), log=log, target_minutes=minutes,
-        corners=cfg.get("corners"), review=not args.no_review,
-    )
+    providers = make_providers(args.llm, log)
+    if minutes >= 12 and providers:
+        # 30分番組: Wikipedia で背景を下調べしてから、ニュースごとに章を書く
+        enrich(articles, providers[0], log=log)
+        script, llm_name, warnings = write_script_deep(
+            articles, chars, date_label, providers, log=log, target_minutes=minutes,
+            corners=cfg.get("corners"), review=not args.no_review,
+        )
+    else:
+        script, llm_name, warnings = write_script(
+            articles, chars, date_label, providers, log=log, target_minutes=minutes,
+            corners=cfg.get("corners"), review=not args.no_review,
+        )
     # LLMが出した固有名詞の読みを、この回だけ読み辞書に足す
     if script.get("readings"):
         reader = Reader({**load_json(ROOT / "config" / "reading_dict.json"), **{r["word"]: r["reading"] for r in script["readings"]}})
