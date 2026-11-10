@@ -246,3 +246,22 @@ def test_chapter_prompt_states_length(articles, characters):
 
     write_script_deep(articles, characters, "x", [Spy()], log=lambda *_: None, target_minutes=30, pause=0, retry_wait=0)
     assert "セリフは" in seen[0] and "合計およそ" in seen[0]
+
+
+
+def test_chapter_prompt_forbids_greetings_and_asks_enough_length(articles, characters):
+    from radio.script import CHARS_PER_MIN
+
+    seen = []
+
+    class Spy(DeepProvider):
+        def generate(self, system, user):
+            if "1コーナー" in system:
+                seen.append(system)
+            return super().generate(system, user)
+
+    write_script_deep(articles, characters, "x", [Spy()], log=lambda *_: None, target_minutes=30, pause=0, retry_wait=0)
+    assert "挨拶・番組名・自己紹介・お別れの言葉を言わない" in seen[0]
+    per_news = (30 - 2.5) / len(articles)
+    asked = int(int(per_news * CHARS_PER_MIN) * 1.4)
+    assert f"合計およそ {asked} 文字" in seen[0]

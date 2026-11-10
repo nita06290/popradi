@@ -30,7 +30,13 @@ def infer_emotion(text: str) -> str:
 
 
 def resolve_emotion(text: str, given: str | None) -> str:
-    return given if given in EMOTIONS else infer_emotion(text)
+    """LLM の指定を優先。ただし "neutral"（や未指定）のときは文面から推定する。
+
+    flash-lite などは大半のセリフに neutral を付けて抑揚が平坦になるため（2026-11-10 は158中127が neutral）。
+    """
+    if given in EMOTIONS and given != "neutral":
+        return given
+    return infer_emotion(text)
 
 
 @dataclass(frozen=True)

@@ -55,6 +55,15 @@ def test_infer_emotion(text, emo):
 def test_resolve_emotion_prefers_valid_llm_value():
     assert resolve_emotion("普通の文です。", "excited") == "excited"
     assert resolve_emotion("普通の文です。", "angry") == "neutral"  # 未知の値は推定に戻す
+
+
+def test_resolve_emotion_neutral_from_llm_uses_text_cues():
+    """flash-lite が全部 neutral を付けても、文面の「？」「！」「なるほど」で抑揚をつける。"""
+    assert resolve_emotion("それってどういうことですか？", "neutral") == "question"
+    assert resolve_emotion("ええっ、すごい！", "neutral") == "excited"
+    assert resolve_emotion("なるほど、そういうことなんですね。", "neutral") == "thinking"
+    assert resolve_emotion("今日は晴れです。", "neutral") == "neutral"
+    assert resolve_emotion("今日は晴れです。", None) == "neutral"
     assert set(EMOTIONS) == {"neutral", "excited", "question", "thinking", "calm"}
 
 

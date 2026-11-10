@@ -50,8 +50,15 @@ jobs:
       - name: Unit tests (壊れた状態で放送しない)
         run: python -m pytest -q
 
+      # 2026-11-10 は apt の man-db 更新処理で約7分かかっていた → 止めて最小構成で入れる
       - name: Install ffmpeg
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+        run: |
+          if command -v ffmpeg >/dev/null; then ffmpeg -version | head -1; exit 0; fi
+          sudo rm -f /var/lib/man-db/auto-update
+          echo 'path-exclude /usr/share/doc/*' | sudo tee /etc/dpkg/dpkg.cfg.d/01_nodoc >/dev/null
+          sudo apt-get install -y -qq --no-install-recommends ffmpeg \
+            || { sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ffmpeg; }
+          ffmpeg -version | head -1
 
       - name: Generate today's episode
         env:

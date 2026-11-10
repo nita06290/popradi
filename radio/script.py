@@ -17,7 +17,7 @@ from .news import Article
 
 SPEAKER_IDS = ("haru", "sora")
 MAX_LINE_CHARS = 120
-CHARS_PER_MIN = 430  # VOICEVOX（速さ1.0）で1分に読む字数の実測値（間を含む）
+CHARS_PER_MIN = 390  # 番組1分あたりの字数の実測値（VOICEVOX 速さ1.0、セリフ間・ジングル込み。2026-11-10 の23.5分回で388字/分）
 
 
 class LLMError(RuntimeError):
@@ -562,7 +562,8 @@ CHAPTER_SYSTEM = """あなたは日本語ラジオ番組「{show}」の放送作
 - sora（{sora_name}・{sora_role}）: {sora_personality}
 
 # 構成（この順で、自然な会話として）
-1. 導入: 何のニュースかをひとことで。前のコーナーからの軽いつなぎ。
+※ 番組のオープニングとエンディングは別に用意されている。このコーナーでは「おはようございます」などの挨拶・番組名・自己紹介・お別れの言葉を言わない。
+1. 導入: 「続いては〜」など前のコーナーからのつなぎで始め、何のニュースかをひとことで。
 2. くわしく: <article> の見出し・説明文・related（同じニュースの別媒体の見出し）から分かることを整理して伝える。
 3. 背景・豆知識: <article> の notes（Wikipedia の背景メモ）や、広く知られた一般知識で深掘り。
 4. リスナー目線: 行ってみるなら？暮らしや仕事にどう関係する？ソラの素朴な疑問にハルが答える。
@@ -619,7 +620,7 @@ def _valid_lines(lines) -> list[dict]:
 
 def write_chapter(provider, a: Article, characters: dict, minutes: float, corners: list[str], position: str, log, retry_wait: float) -> dict:
     chars = int(minutes * CHARS_PER_MIN)
-    ask = int(chars * 1.2)  # モデルは少なめに書きがちなので多めに頼む
+    ask = int(chars * 1.4)  # モデル（特に flash-lite）は頼んだ字数の7割前後しか書かないので多めに頼む
     target_lines = max(10, round(ask / 60))
     system = _fmt(CHAPTER_SYSTEM, characters, minutes=f"{minutes:.0f}", chars=ask, lines_lo=round(target_lines * 0.85),
                   lines_hi=round(target_lines * 1.15), corners=" / ".join(corners), corner0=corners[0])
