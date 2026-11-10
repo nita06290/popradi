@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>サンプル: Python</title>
+  <item>
+   <title>【サンプル】Python入門講座、小学生向けに無料公開 - サンプル教育</title>
+   <link>https://example.com/edu/python-kids</link>
+   <pubDate>{{HOURS_AGO:7}}</pubDate>
+   <description>架空の教育団体が小学生向けのPython入門講座を無料で公開。ゲームを作りながら変数やループを学べる内容。</description>
+   <source url="https://example.com">サンプル教育</source>
+  </item>
+  <item>
+   <title>【サンプル】GitHub Actionsで毎朝ラジオを作る個人開発が話題 - サンプルテック</title>
+   <link>https://example.com/tech/actions-radio</link>
+   <pubDate>{{HOURS_AGO:9}}</pubDate>
+   <description>GitHubとPythonを組み合わせ、毎朝ニュースを読み上げるラジオを自動生成する個人開発プロジェクトがSNSで話題になっている。</description>
+   <source url="https://example.com">サンプルテック</source>
+  </item>
+</channel></rss>

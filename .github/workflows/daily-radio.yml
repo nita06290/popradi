@@ -1,0 +1,101 @@
+name: daily-radio
+
+on:
+  schedule:
+    # 毎時0分は混雑して遅れやすいので 04:37 JST (= 19:37 UTC 前日) にずらす
+    - cron: "37 19 * * *"
+  workflow_dispatch:
+    inputs:
+      llm:
+        description: "台本生成 (auto / gemini / github / template)"
+        default: auto
+      sample:
+        description: "サンプルRSSで実行する (true/false)"
+        default: "false"
+
+permissions:
+  contents: write   # gh-pages への push
+  models: read      # GitHub Models (無料枠) を GITHUB_TOKEN で呼ぶ
+  issues: write     # 失敗したら Issue で通知
+
+concurrency:
+  group: daily-radio
+  cancel-in-progress: false
+
+jobs:
+  broadcast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      voicevox:
+        image: voicevox/voicevox_engine:cpu-latest
+        ports:
+          - 50021:50021
+    steps:
+      - uses: actions/checkout@v4
+
+      # 前日までの放送（gh-pages）を site/ に復元。初回は存在しないので失敗してもOK
+      - name: Restore previous broadcasts
+        run: |
+          git fetch --depth=1 origin gh-pages && git worktree add site origin/gh-pages || mkdir -p site
+          rm -rf site/.git
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Unit tests (壊れた状態で放送しない)
+        run: python -m pytest -q
+
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
+      - name: Generate today's episode
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.5-flash' }}
+          VOICEVOX_URL: http://localhost:50021
+        run: |
+          set -o pipefail  # tee を挟んでも失敗を失敗として扱う（通知のため）
+          ARGS="--site site --tts voicevox --llm ${{ inputs.llm || 'auto' }}"
+          if [ "${{ inputs.sample }}" = "true" ]; then ARGS="$ARGS --sample --topics tests/fixtures/topics_sample.json"; fi
+          python -m radio.pipeline $ARGS | tee run.log
+
+      - name: Validate site
+        run: python -m tools.check_site site
+
+      # 履歴を持たない orphan コミットで force push → 音声がgit履歴に溜まらない
+      - name: Publish to gh-pages
+        run: |
+          cd site
+          touch .nojekyll
+          git init -q -b gh-pages
+          git config user.name "popradi-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "broadcast $(date -u +%F)"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages
+
+      # 失敗したら Issue を立てる（GitHubアプリの通知でスマホに届く）。同じ日の重複は作らない
+      - name: Notify failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TITLE="📻 放送失敗 $(TZ=Asia/Tokyo date +%F)"
+          if [ -z "$(gh issue list --state open --search "$TITLE in:title" --json number -q '.[0].number')" ]; then
+            { echo "毎朝の番組生成が失敗しました。"; echo; echo "実行ログ: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"; echo; echo '```'; tail -n 30 run.log 2>/dev/null || echo "(ログなし)"; echo '```'; } > issue.md
+            gh issue create --title "$TITLE" --body-file issue.md --label broadcast-failure || gh issue create --title "$TITLE" --body-file issue.md
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## 📻 ポプラジ 放送ログ" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -n 20 run.log >> $GITHUB_STEP_SUMMARY 2>/dev/null || true
+          echo '```' >> $GITHUB_STEP_SUMMARY

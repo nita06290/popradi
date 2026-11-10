@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>サンプル: Azure</title>
+  <item>
+   <title>【サンプル】Azureの架空リージョン「サンプル東日本2」が開設へ - サンプルクラウド</title>
+   <link>https://example.com/cloud/region</link>
+   <pubDate>{{HOURS_AGO:4}}</pubDate>
+   <description>架空のニュース。Azureの新しいデータセンターリージョンが開設予定で、国内のデータ保管ニーズに応えるとしている。</description>
+   <source url="https://example.com">サンプルクラウド</source>
+  </item>
+</channel></rss>

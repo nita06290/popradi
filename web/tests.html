@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>ポプラジ UI tests</title>
+<style>
+body { font-family: system-ui, sans-serif; background: #FFF4DE; color: #1D1A2F; padding: 16px; }
+#result { font-size: 22px; font-weight: 800; padding: 10px 14px; border: 3px solid #1D1A2F; border-radius: 14px; display: inline-block; }
+.pass { color: #0a7a5a; } .fail { color: #c0143c; font-weight: 700; }
+li { margin: 2px 0; font-family: ui-monospace, monospace; font-size: 13px; }
+</style></head>
+<body>
+<h1>📻 ポプラジ UI ロジックテスト</h1>
+<div id="result">running…</div>
+<ol id="list"></ol>
+<script src="lib.js"></script>
+<script>
+const L = window.PopLib, results = [];
+function test(name, fn) { try { fn(); results.push([name, true]); } catch (e) { results.push([name, false, e.message]); } }
+function eq(a, b, msg) { const A = JSON.stringify(a), B = JSON.stringify(b); if (A !== B) throw new Error((msg || "") + " expected " + B + " got " + A); }
+
+const lines = [{ start: 1.0, end: 2.5 }, { start: 2.8, end: 4.0 }, { start: 4.3, end: 6.0 }];
+const chapters = [{ start: 1.0, title: "op" }, { start: 2.8, title: "n1" }, { start: 4.3, title: "ed" }];
+
+test("formatTime", () => { eq(L.formatTime(0), "0:00"); eq(L.formatTime(65.9), "1:05"); eq(L.formatTime(3725), "1:02:05"); eq(L.formatTime(NaN), "0:00"); eq(L.formatTime(-3), "0:00"); });
+test("findLineIndex: before start = -1", () => eq(L.findLineIndex(lines, 0.5), -1));
+test("findLineIndex: inside lines", () => { eq(L.findLineIndex(lines, 1.0), 0); eq(L.findLineIndex(lines, 3.0), 1); eq(L.findLineIndex(lines, 99), 2); });
+test("findLineIndex: gap keeps previous line", () => eq(L.findLineIndex(lines, 2.6), 0));
+test("findLineIndex: empty", () => eq(L.findLineIndex([], 3), -1));
+test("isSpeaking only inside [start,end]", () => { eq(L.isSpeaking(lines, 0, 2.0), true); eq(L.isSpeaking(lines, 0, 2.6), false); eq(L.isSpeaking(lines, -1, 0), false); });
+test("findChapterIndex", () => { eq(L.findChapterIndex(chapters, 0), 0); eq(L.findChapterIndex(chapters, 3), 1); eq(L.findChapterIndex(chapters, 4.29), 2); });
+test("nextSpeed cycles", () => { eq(L.nextSpeed(1.0), 1.25); eq(L.nextSpeed(2.0), 0.8); eq(L.nextSpeed(1.1), 0.8); });
+test("chapterMarkers %", () => { eq(L.chapterMarkers(chapters, 10).map((m) => Math.round(m.left * 1000) / 1000), [10, 28, 43]); eq(L.chapterMarkers(chapters, 0), []); });
+test("prevChapterTime: >3s into chapter goes to its start", () => eq(L.prevChapterTime([{ start: 0 }, { start: 10 }], 15), 10));
+test("prevChapterTime: <3s goes to previous chapter", () => eq(L.prevChapterTime([{ start: 0 }, { start: 10 }], 11), 0));
+test("nextChapterTime: last chapter -> duration", () => { eq(L.nextChapterTime(chapters, 3, 7), 4.3); eq(L.nextChapterTime(chapters, 5, 7), 7); });
+test("resumePosition", () => { eq(L.resumePosition(120, 600), 120); eq(L.resumePosition(3, 600), 0); eq(L.resumePosition(595, 600), 0); eq(L.resumePosition(null, 600), 0); });
+test("computeStreak: today included", () => eq(L.computeStreak(["2026-11-06", "2026-11-07", "2026-11-08"], "2026-11-08"), 3));
+test("computeStreak: not yet today but yesterday continues", () => eq(L.computeStreak(["2026-11-06", "2026-11-07"], "2026-11-08"), 2));
+test("computeStreak: broken", () => eq(L.computeStreak(["2026-11-05", "2026-11-08"], "2026-11-08"), 1));
+test("computeStreak: across month boundary", () => eq(L.computeStreak(["2026-10-31", "2026-11-01"], "2026-11-01"), 2));
+test("dateLabel", () => eq(L.dateLabel("2026-11-08"), { md: "11/8", wd: "日", dow: 0 }));
+test("greeting by hour", () => { eq(L.greeting(5).includes("おはよう"), true); eq(L.greeting(20).includes("おつかれ"), true); });
+test("escapeHtml", () => eq(L.escapeHtml('<img src=x onerror="a">&'), "&lt;img src=x onerror=&quot;a&quot;&gt;&amp;"));
+test("safeUrl blocks javascript:", () => { eq(L.safeUrl("javascript:alert(1)"), "#"); eq(L.safeUrl("https://example.com/a"), "https://example.com/a"); eq(L.safeUrl("not a url"), "#"); });
+
+test("mapsUrl encodes venue + area", () => eq(L.mapsUrl("ちひろ美術館・東京", "練馬区"), "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("ちひろ美術館・東京 練馬区")));
+test("mapsUrl without area", () => eq(L.mapsUrl("森美術館", undefined).endsWith(encodeURIComponent("森美術館")), true));
+test("calendarUrl has title, location, period", () => {
+  const u = new URL(L.calendarUrl("長新太展", { venue: "ちひろ美術館", period: "1月31日まで" }, "https://example.com/a"));
+  eq(u.hostname, "calendar.google.com"); eq(u.searchParams.get("action"), "TEMPLATE"); eq(u.searchParams.get("text"), "長新太展");
+  eq(u.searchParams.get("location"), "ちひろ美術館"); eq(u.searchParams.get("details"), "会期: 1月31日まで\nhttps://example.com/a");
+});
+test("calendarUrl without event", () => eq(new URL(L.calendarUrl("t", null, "")).searchParams.has("location"), false));
+test("nextSleep cycles off→15→30→60→off", () => { eq(L.nextSleep(0), 15); eq(L.nextSleep(15), 30); eq(L.nextSleep(60), 0); eq(L.nextSleep(7), 0); });
+
+const pass = results.filter((r) => r[1]).length;
+document.getElementById("list").innerHTML = results.map((r) => '<li class="' + (r[1] ? "pass" : "fail") + '">' + (r[1] ? "✅ " : "❌ ") + L.escapeHtml(r[0]) + (r[2] ? " — " + L.escapeHtml(r[2]) : "") + "</li>").join("");
+const res = document.getElementById("result");
+res.textContent = (pass === results.length ? "ALL PASS " : "FAILED ") + pass + "/" + results.length;
+res.className = pass === results.length ? "pass" : "fail";
+window.__testResult = { pass, total: results.length, failures: results.filter((r) => !r[1]) };
+</script>
+</body>
+</html>

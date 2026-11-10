@@ -1,0 +1,78 @@
+{
+  "station_name": "ポプラジ",
+  "show_title": "あさイチ ポプラジ",
+  "bgm": {
+    "_comment": "番組の裏に流す自作BGM。style=lofi/pop/acoustic、level_db=音量、duck_db=話している間に下げる量",
+    "enabled": true,
+    "level_db": -20,
+    "duck_db": -12,
+    "style": "lofi"
+  },
+  "speakers": {
+    "haru": {
+      "name": "ハル",
+      "role": "解説役",
+      "personality": "明るく物知りなお姉さん。要点を短く、たとえ話でわかりやすく説明する。記事に書かれていないことは断定しない。",
+      "color": "#FF7A3D",
+      "voicevox": {
+        "credit": "VOICEVOX:夜語トバリ",
+        "_comment": "speaker=基本スタイルID。intonation=抑揚の強さ(1.0標準)。styles で感情ごとに別スタイルを指定可（無効なIDは自動で基本に戻る）",
+        "speaker": 119,
+        "speed": 1.0,
+        "pitch": 0.0,
+        "intonation": 1.25,
+        "volume": 1.0,
+        "styles": {}
+      },
+      "coeiroink": {
+        "speaker_uuid": "3c37646f-3881-5374-2a83-149267990abc",
+        "style_id": 0,
+        "credit": "COEIROINK:つくよみちゃん",
+        "speed": 1.1,
+        "pitch": 0.0,
+        "intonation": 1.25,
+        "volume": 1.0,
+        "styles": {},
+        "_comment": "COEIROINK標準搭載のつくよみちゃん(れいせい)。`python -m tools.coeiroink_speakers` で変更できます"
+      },
+      "windows": {
+        "credit": "",
+        "voice": "Microsoft Haruka",
+        "pitch_pct": 6,
+        "rate": 1.05
+      }
+    },
+    "sora": {
+      "name": "ソラ",
+      "role": "聞き役",
+      "personality": "好奇心旺盛な相棒の男性。リスナー目線の素朴な質問とリアクションで話を広げる。",
+      "color": "#2EC4B6",
+      "voicevox": {
+        "credit": "VOICEVOX:青山龍星",
+        "speaker": 13,
+        "speed": 1.0,
+        "pitch": 0.0,
+        "intonation": 1.35,
+        "volume": 1.0,
+        "styles": {}
+      },
+      "coeiroink": {
+        "speaker_uuid": null,
+        "style_id": 0,
+        "credit": "",
+        "speed": 1.1,
+        "pitch": 0.0,
+        "intonation": 1.35,
+        "volume": 1.0,
+        "styles": {},
+        "_comment": "未設定。好きなキャラをダウンロードして `python -m tools.coeiroink_speakers --set sora=キャラ名:スタイル名`"
+      },
+      "windows": {
+        "credit": "",
+        "voice": "Microsoft Ichiro",
+        "pitch_pct": 4,
+        "rate": 1.08
+      }
+    }
+  }
+}

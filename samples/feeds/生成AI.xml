@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>サンプル: 生成AI</title>
+  <item>
+   <title>【サンプル】架空企業ミライ技研、社内文書を要約する生成AIアシスタントを全社導入 - サンプル新聞</title>
+   <link>https://example.com/news/mirai-ai?utm_source=rss</link>
+   <pubDate>{{HOURS_AGO:2}}</pubDate>
+   <description>架空の企業ミライ技研は、社内の議事録や報告書を自動で要約する生成AIアシスタントを全社員3000人に導入したと発表した。導入後3か月で資料作成の時間が平均20%短縮したという。</description>
+   <source url="https://example.com">サンプル新聞</source>
+  </item>
+  <item>
+   <title>【サンプル】自治体向け生成AIガイドライン、改訂版を公開 - サンプルITニュース</title>
+   <link>https://example.com/it/gov-guideline</link>
+   <pubDate>{{HOURS_AGO:5}}</pubDate>
+   <description>架空の団体が自治体職員向けの生成AI利用ガイドライン改訂版を公開。個人情報の入力禁止や、出力内容の確認手順を明確にした。</description>
+   <source url="https://example.com">サンプルITニュース</source>
+  </item>
+  <item>
+   <title>【サンプル】古い記事：去年の生成AIまとめ - サンプル新聞</title>
+   <link>https://example.com/news/old</link>
+   <pubDate>{{HOURS_AGO:80}}</pubDate>
+   <description>これは80時間前の古い記事なのでフィルタで除外されるはず。</description>
+   <source url="https://example.com">サンプル新聞</source>
+  </item>
+</channel></rss>

@@ -1,0 +1,35 @@
+name: 🏷️ キーワードを変える
+description: ラジオで取り上げるトピック・キーワードを追加／変更／削除します（次の朝の放送から反映）
+title: "キーワード変更"
+labels: ["keywords"]
+body:
+  - type: dropdown
+    id: action
+    attributes:
+      label: 操作
+      options:
+        - 追加・変更
+        - 削除
+    validations:
+      required: true
+  - type: input
+    id: topic
+    attributes:
+      label: トピック名
+      description: 既存の名前なら変更、新しい名前なら追加になります
+      placeholder: 東京周辺の美術イベント
+    validations:
+      required: true
+  - type: input
+    id: emoji
+    attributes:
+      label: 絵文字
+      placeholder: 🎨
+  - type: textarea
+    id: keywords
+    attributes:
+      label: キーワード
+      description: カンマか改行で区切ります（最大10個）。「美術展 東京」のようにスペースで地域を足すと絞り込めます
+      placeholder: |
+        美術展 東京
+        展覧会 東京

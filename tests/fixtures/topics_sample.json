@@ -1,0 +1,55 @@
+{
+  "_comment": "テスト専用（samples/feeds のサンプルRSSに対応）。本番の config/topics.json を変えてもテストが壊れないように分けている",
+  "lookback_hours": 30,
+  "max_per_topic": 2,
+  "max_total": 6,
+  "minutes": {
+    "weekday": 5,
+    "weekend": 8
+  },
+  "max_excited_ratio": 0.3,
+  "corners": [
+    "注目ニュース",
+    "ちょっと気になる"
+  ],
+  "topics": [
+    {
+      "name": "生成AI",
+      "emoji": "🤖",
+      "keywords": [
+        "生成AI",
+        "LLM"
+      ]
+    },
+    {
+      "name": "クラウド",
+      "emoji": "☁️",
+      "keywords": [
+        "Azure",
+        "AWS"
+      ]
+    },
+    {
+      "name": "開発技術",
+      "emoji": "🛠️",
+      "keywords": [
+        "Python",
+        "GitHub"
+      ]
+    },
+    {
+      "name": "データサイエンス",
+      "emoji": "📊",
+      "keywords": [
+        "データサイエンス",
+        "機械学習"
+      ]
+    }
+  ],
+  "extra_feeds": [
+    {
+      "name": "ITmedia NEWS",
+      "url": "https://rss.itmedia.co.jp/rss/2.0/itmedia_all.xml"
+    }
+  ]
+}

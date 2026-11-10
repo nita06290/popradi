@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>サンプル: データサイエンス</title>
+  <item>
+   <title>【サンプル】データサイエンス人材の育成プログラム、大学で開講 - サンプル新聞</title>
+   <link>https://example.com/news/ds-program</link>
+   <pubDate>{{HOURS_AGO:10}}</pubDate>
+   <description>架空の大学がデータサイエンスと機械学習を実践的に学ぶ社会人向けプログラムを開講。受講生は実データを使った課題に取り組む。</description>
+   <source url="https://example.com">サンプル新聞</source>
+  </item>
+</channel></rss>
