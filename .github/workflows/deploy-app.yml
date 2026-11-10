@@ -1,0 +1,47 @@
+name: deploy-app
+
+# アプリ本体（web/）やキーワード設定を変えたら、番組づくりを待たずにスマホへ反映する
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - "config/**"
+      - "radio/pipeline.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# 番組づくり（daily-radio）と同時に gh-pages を書き換えないよう、同じグループで順番待ちにする
+concurrency:
+  group: daily-radio
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Restore published broadcasts
+        run: |
+          git fetch --depth=1 origin gh-pages && git worktree add site origin/gh-pages || mkdir -p site
+          rm -rf site/.git
+      - name: Update app files only (episodes and audio are kept)
+        run: python -m radio.pipeline --site site --web-only
+      - name: Publish to gh-pages
+        run: |
+          cd site
+          touch .nojekyll
+          git init -q -b gh-pages
+          git config user.name "popradi-bot"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "app update $(date -u +%F)"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" gh-pages

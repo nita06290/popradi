@@ -34,7 +34,11 @@
     <div class="card building hidden" id="building" role="status" aria-live="polite">
       <div class="building-row"><span class="spinner" aria-hidden="true">📻</span>
         <div><b id="buildingTitle">新しい番組を作っています…</b><small id="buildingSub">ニュース集め → 台本 → 音声。だいたい15分くらい</small></div></div>
-      <div class="building-bar"><i id="buildingFill"></i></div>
+      <div class="building-bar" id="buildingBar"><i id="buildingFill"></i></div>
+      <div class="form-actions hidden" id="buildingAsk">
+        <button class="pill" id="btnBuildCancel">やめる</button>
+        <button class="pill primary" id="btnBuildGo">🔄 作り直す</button>
+      </div>
     </div>
 
     <div class="stage card" id="stage">
@@ -136,14 +140,11 @@
 
   <!-- ===== キーワード ===== -->
   <section class="view hidden" id="view-keywords" data-view="keywords">
-    <div class="page-head">
-      <h2 class="page-title">🏷️ キーワード</h2>
-      <button class="icon-btn" id="btnSettings" aria-label="設定">⚙️</button>
-    </div>
+    <h2 class="page-title">🏷️ キーワード</h2>
     <p class="hint" id="kwHint">毎朝このキーワードでニュースを集めて番組にしています。</p>
     <div class="card connect hidden" id="connectCard">
-      <b>🔗 アプリでキーワードを編集するには</b>
-      <p>最初に一度だけ、GitHubとの連携が必要です。</p>
+      <b>🔗 はじめに一度だけ GitHub と連携</b>
+      <p>連携すると、ここでキーワードを編集したり、🔄 でいつでも番組を作り直せます。</p>
       <button class="pill primary" id="btnConnect">連携する</button>
     </div>
     <div class="topics" id="topics"></div>
@@ -173,7 +174,7 @@
 
 <div class="sheet-bg hidden" id="sheet">
   <div class="sheet card" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
-    <h3 id="sheetTitle">⚙️ GitHub連携</h3>
+    <h3 id="sheetTitle">🔗 GitHub と連携（最初の1回だけ）</h3>
     <p class="sheet-status" id="ghStatus">未連携</p>
     <ol class="steps">
       <li><a id="tokenLink" href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener noreferrer">GitHubのトークン作成ページ ↗</a> を開く</li>
@@ -184,7 +185,6 @@
     <input type="password" id="tokenInput" placeholder="github_pat_..." autocomplete="off" aria-label="GitHubトークン">
     <p class="hint small">トークンはこのスマホの中だけに保存され、GitHub以外には送られません。</p>
     <div class="form-actions">
-      <button class="pill" id="btnDisconnect">連携を解除</button>
       <button class="pill" id="btnSheetClose">閉じる</button>
       <button class="pill primary" id="btnTokenSave">保存</button>
     </div>

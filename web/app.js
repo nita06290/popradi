@@ -363,7 +363,7 @@
       const r = await fetch(GH_API + path, Object.assign({}, opts, {
         headers: Object.assign({ Accept: "application/vnd.github+json", Authorization: "Bearer " + gh.token(), "X-GitHub-Api-Version": "2022-11-28" }, (opts && opts.headers) || {}),
       }));
-      if (r.status === 401) throw new Error("トークンが無効か期限切れみたい（⚙️から設定し直してね）");
+      if (r.status === 401) { store.set("ghToken", ""); renderKeywords(); throw new Error("連携の期限が切れたみたい。キーワード画面からもう一度連携してね"); }
       if (r.status === 403 || r.status === 404) throw new Error("権限が足りないみたい（Contents と Actions を Read and write にしてね）");
       if (!r.ok) throw new Error("GitHub エラー " + r.status);
       return r.status === 204 ? null : r.json();
@@ -394,17 +394,12 @@
     $("tokenInput").value = "";
     $("ghStatus").textContent = gh.token() ? "✅ 連携中（" + owner + "/" + repo + "）" : "まだ連携していません";
     $("ghStatus").classList.toggle("ok", !!gh.token());
-    $("btnDisconnect").classList.toggle("hidden", !gh.token());
     $("sheet").classList.remove("hidden");
   }
   function closeSheet() { $("sheet").classList.add("hidden"); }
-  $("btnSettings").addEventListener("click", openSheet);
   $("btnConnect").addEventListener("click", openSheet);
   $("btnSheetClose").addEventListener("click", closeSheet);
   $("sheet").addEventListener("click", (e) => { if (e.target === $("sheet")) closeSheet(); });
-  $("btnDisconnect").addEventListener("click", () => {
-    store.set("ghToken", ""); toast("連携を解除しました"); closeSheet(); renderKeywords();
-  });
   $("btnTokenSave").addEventListener("click", async () => {
     const t = $("tokenInput").value.trim();
     if (!t) { toast("トークンを貼り付けてね"); return; }
@@ -412,7 +407,7 @@
     store.set("ghToken", t);
     try {
       await gh.loadTopics();
-      toast("🔗 連携できました！");
+      toast("🔗 連携できました！ 🔄 でいつでも番組を作り直せます");
       closeSheet();
       await renderKeywords(true);
     } catch (e) {
@@ -477,7 +472,12 @@
     }
     else if (act === "delKw") applyEdit({ type: "removeKeyword", topic: topic.name, keyword: btn.dataset.kw }, "「" + btn.dataset.kw + "」を削除しました");
     else if (act === "delTopic") {
-      if (!window.confirm("トピック「" + topic.name + "」を削除しますか？")) return;
+      // ダイアログを使わず「もう一度押すと削除」にする
+      if (btn.dataset.armed !== "1") {
+        btn.dataset.armed = "1"; btn.textContent = "もう一度押すと削除"; btn.classList.add("armed");
+        setTimeout(() => { if (btn.isConnected) { btn.dataset.armed = ""; btn.textContent = "🗑"; btn.classList.remove("armed"); } }, 3000);
+        return;
+      }
       applyEdit({ type: "removeTopic", topic: topic.name }, "トピック「" + topic.name + "」を削除しました");
     }
   });
@@ -498,9 +498,21 @@
   // ---- 今すぐ更新
   const EXPECTED_SEC = 15 * 60;
   async function startRefresh() {
-    if (!gh.token()) { toast("今すぐ更新するには、キーワード画面の ⚙️ でGitHubと連携してね"); location.hash = "#/keywords"; return; }
+    if (!gh.token()) { openSheet(); toast("最初に一度だけ GitHub と連携してね"); return; }
     if (state.building) { toast("いま作っているところだよ 📻"); return; }
-    if (!window.confirm("今の最新ニュースで番組を作り直しますか？（15分くらいかかります）")) return;
+    // 確認はダイアログではなく画面内のカードで（アプリ表示ではダイアログが出ないことがあるため）
+    location.hash = "#/today";
+    $("building").classList.remove("hidden");
+    $("buildingAsk").classList.remove("hidden");
+    $("buildingBar").classList.add("hidden");
+    $("buildingTitle").textContent = "最新のニュースで番組を作り直しますか？";
+    $("buildingSub").textContent = "15〜25分くらいでできあがります。そのあいだも今の回は聴けます";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  async function confirmRefresh() {
+    $("buildingAsk").classList.add("hidden");
+    $("buildingBar").classList.remove("hidden");
+    $("buildingTitle").textContent = "新しい番組を作っています…";
     try {
       const before = await gh.latestRun();
       await gh.dispatch();
@@ -508,13 +520,16 @@
       store.set("building", state.building);
       showBuilding();
       toast("🔄 番組づくりを始めました");
-    } catch (e) { toast("開始できませんでした: " + e.message); }
+    } catch (e) { $("building").classList.add("hidden"); toast("開始できませんでした: " + e.message); }
   }
+  $("btnBuildGo").addEventListener("click", confirmRefresh);
+  $("btnBuildCancel").addEventListener("click", () => { $("building").classList.add("hidden"); $("buildingAsk").classList.add("hidden"); $("buildingBar").classList.remove("hidden"); });
   function showBuilding() {
     const b = state.building;
     $("building").classList.toggle("hidden", !b);
     $("btnRefresh").classList.toggle("spin", !!b);
     if (!b) return;
+    $("buildingTitle").textContent = "新しい番組を作っています…";
     const sec = (Date.now() - b.since) / 1000;
     $("buildingFill").style.width = L.buildProgress(sec, EXPECTED_SEC) + "%";
     $("buildingSub").textContent = b.phase === "publish" ? "できあがり！公開の準備中…" : "ニュース集め → 台本 → 音声（" + L.formatTime(sec) + " 経過・目安15分）";
