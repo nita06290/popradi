@@ -1,0 +1,728 @@
+{
+ "id": "2026-11-15",
+ "date": "2026-11-15",
+ "title": "東京周辺の美術イベント・生成AIほか ニュース11本",
+ "summary": "東京周辺の美術イベント・生成AI・クラウドなど11本のニュースを2人でゆるっと紹介。",
+ "audio": "audio/2026-11-15.mp3",
+ "duration": 336.58,
+ "generated_at": "2026-11-15T05:22:19.660633+09:00",
+ "generator": {
+  "llm": "template",
+  "tts": "voicevox",
+  "sample": false,
+  "usage": {
+   "gemini:gemini-3.5-flash": {
+    "calls": 14,
+    "ok": 12,
+    "prompt_tokens": 9690,
+    "output_tokens": 17138,
+    "thinking_tokens": 34594,
+    "errors": {
+     "503": 2
+    }
+   }
+  }
+ },
+ "speakers": {
+  "haru": {
+   "name": "ハル",
+   "role": "解説役",
+   "color": "#FF7A3D",
+   "credit": "VOICEVOX:夜語トバリ"
+  },
+  "sora": {
+   "name": "ソラ",
+   "role": "聞き役",
+   "color": "#2EC4B6",
+   "credit": "VOICEVOX:青山龍星"
+  }
+ },
+ "chapters": [
+  {
+   "title": "オープニング",
+   "start": 1.44,
+   "source_ids": [],
+   "topic": ""
+  },
+  {
+   "title": "写真家ユージン・スミスの生誕100周年を回顧する…",
+   "start": 23.11,
+   "source_ids": [
+    "n5a18e7e6"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "LLMエクスプレーナーによる生成AI出力結果の検…",
+   "start": 51.0,
+   "source_ids": [
+    "nd06a2c18"
+   ],
+   "topic": "生成AI"
+  },
+  {
+   "title": "Azure Kamsaki oSushi…",
+   "start": 75.44,
+   "source_ids": [
+    "n8d73791c"
+   ],
+   "topic": "クラウド"
+  },
+  {
+   "title": "AlibabaのオープンコードレビューがGitH…",
+   "start": 99.64,
+   "source_ids": [
+    "n7d401b0b"
+   ],
+   "topic": "開発技術"
+  },
+  {
+   "title": "「Hugging Face」AI・機械学習特化の…",
+   "start": 124.87,
+   "source_ids": [
+    "n09ad1c16"
+   ],
+   "topic": "データサイエンス"
+  },
+  {
+   "title": "精緻な作品模型が登場！横浜そごう美術館「レオナル…",
+   "start": 147.53,
+   "source_ids": [
+    "nccd41f6f"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "【人工知能学会前会長・栗原聡インタビュー…",
+   "start": 173.41,
+   "source_ids": [
+    "n7e66095f"
+   ],
+   "topic": "生成AI"
+  },
+  {
+   "title": "Gemini 4 Hydrogen -…",
+   "start": 206.19,
+   "source_ids": [
+    "n71992b49"
+   ],
+   "topic": "開発技術"
+  },
+  {
+   "title": "【プレビュー】「スウェーデンのうつわ…",
+   "start": 235.07,
+   "source_ids": [
+    "nd77ca723"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "中野耕志 写真展「JETBIRDER」…",
+   "start": 262.49,
+   "source_ids": [
+    "na8088e5b"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "【芸術の秋】東京が舞台の国際美術展「TOKYO…",
+   "start": 289.36,
+   "source_ids": [
+    "n29e24b8b"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "エンディング",
+   "start": 320.42,
+   "source_ids": [],
+   "topic": ""
+  }
+ ],
+ "lines": [
+  {
+   "speaker": "haru",
+   "text": "おはようございます！あさイチ ポプラジ、パーソナリティのハルです。",
+   "reading": "おはようございます!あさイチ ポプラジ、パーソナリティのハルです。",
+   "emotion": "excited",
+   "chapter": 0,
+   "start": 1.44,
+   "end": 6.35
+  },
+  {
+   "speaker": "sora",
+   "text": "おはようございまーす、ソラです！今日もニュースをゆるっとチェックしていきましょう！",
+   "reading": "おはようございまーす、ソラです!今日もニュースをゆるっとチェックしていきましょう!",
+   "emotion": "neutral",
+   "chapter": 0,
+   "start": 6.63,
+   "end": 11.76
+  },
+  {
+   "speaker": "haru",
+   "text": "今日は東京周辺の美術イベント、生成AI、クラウド、開発技術、データサイエンスから、11本のニュースを紹介します。",
+   "reading": "今日は東京周辺の美術イベント、生成エーアイ、クラウド、開発技術、データサイエンスから、11本のニュースを紹介します。",
+   "emotion": "neutral",
+   "chapter": 0,
+   "start": 12.04,
+   "end": 21.82
+  },
+  {
+   "speaker": "haru",
+   "text": "まずは東京周辺の美術イベントの話題です。ウォーカープラスから。「写真家ユージン・スミスの生誕100周年を回顧する写真展が東京都写真美術館で開催」。",
+   "reading": "まずは東京周辺の美術イベントの話題です。ウォーカープラスから。写真家ユージン・スミスの生誕100周年を回顧する写真展が東京都写真美術館で開催。",
+   "emotion": "neutral",
+   "chapter": 1,
+   "start": 23.11,
+   "end": 34.85
+  },
+  {
+   "speaker": "sora",
+   "text": "なるほど、朝から興味深い話題ですね。",
+   "reading": "なるほど、朝から興味深い話題ですね。",
+   "emotion": "thinking",
+   "chapter": 1,
+   "start": 35.13,
+   "end": 38.21
+  },
+  {
+   "speaker": "sora",
+   "text": "ハルさん的には、どこがポイントだと思います？",
+   "reading": "ハルさん的には、どこがポイントだと思います?",
+   "emotion": "question",
+   "chapter": 1,
+   "start": 38.49,
+   "end": 41.53
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 1,
+   "start": 41.81,
+   "end": 49.71
+  },
+  {
+   "speaker": "haru",
+   "text": "それから生成AIの話題です。NECから。「LLMエクスプレーナーによる生成AI出力結果の検証 : 企業情報」。",
+   "reading": "それから生成エーアイの話題です。エヌイーシーから。エルエルエムエクスプレーナーによる生成エーアイ出力結果の検証 : 企業情報。",
+   "emotion": "neutral",
+   "chapter": 2,
+   "start": 51.0,
+   "end": 60.35
+  },
+  {
+   "speaker": "sora",
+   "text": "へえ〜、そうなんですね！",
+   "reading": "へえー、そうなんですね!",
+   "emotion": "excited",
+   "chapter": 2,
+   "start": 60.63,
+   "end": 62.39
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 2,
+   "start": 62.67,
+   "end": 65.97
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 2,
+   "start": 66.25,
+   "end": 74.15
+  },
+  {
+   "speaker": "haru",
+   "text": "それからクラウドの話題です。Howl.Linkから。「Azure Kamsaki oSushi (@kamsakihiyuuma) on X」。",
+   "reading": "それからクラウドの話題です。Howl.Linkから。アジュール Kamsaki oSushi (@kamsakihiyuuma) on X。",
+   "emotion": "neutral",
+   "chapter": 3,
+   "start": 75.44,
+   "end": 84.43
+  },
+  {
+   "speaker": "sora",
+   "text": "おお、それは気になりますね。",
+   "reading": "おお、それは気になりますね。",
+   "emotion": "excited",
+   "chapter": 3,
+   "start": 84.71,
+   "end": 86.61
+  },
+  {
+   "speaker": "sora",
+   "text": "これって、僕たちの生活や仕事にはどう関わってきそうですか？",
+   "reading": "これって、僕たちの生活や仕事にはどう関わってきそうですか?",
+   "emotion": "question",
+   "chapter": 3,
+   "start": 86.89,
+   "end": 91.13
+  },
+  {
+   "speaker": "haru",
+   "text": "見出しを見る限り、クラウドの分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "reading": "見出しを見る限り、クラウドの分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "emotion": "neutral",
+   "chapter": 3,
+   "start": 91.41,
+   "end": 98.35
+  },
+  {
+   "speaker": "haru",
+   "text": "お次は開発技術の話題です。blockchain.newsから。「AlibabaのオープンコードレビューがGitHubで51,009スターを獲得し勢いを増す」。",
+   "reading": "お次は開発技術の話題です。blockchエーアイn.newsから。Alibabaのオープンコードレビューがギットハブで51,009スターを獲得し勢いを増す。",
+   "emotion": "neutral",
+   "chapter": 4,
+   "start": 99.64,
+   "end": 109.96
+  },
+  {
+   "speaker": "sora",
+   "text": "ふむふむ、詳しく聞きたいです！",
+   "reading": "ふむふむ、詳しく聞きたいです!",
+   "emotion": "excited",
+   "chapter": 4,
+   "start": 110.24,
+   "end": 112.36
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 4,
+   "start": 112.64,
+   "end": 115.94
+  },
+  {
+   "speaker": "haru",
+   "text": "見出しを見る限り、開発技術の分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "reading": "見出しを見る限り、開発技術の分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "emotion": "neutral",
+   "chapter": 4,
+   "start": 116.22,
+   "end": 123.58
+  },
+  {
+   "speaker": "haru",
+   "text": "続いてはデータサイエンスの話題です。窓の杜から。「「Hugging Face」AI・機械学習特化の共有プラットフォーム」。",
+   "reading": "続いてはデータサイエンスの話題です。窓の杜から。Hugging Faceエーアイ・機械学習特化の共有プラットフォーム。",
+   "emotion": "neutral",
+   "chapter": 5,
+   "start": 124.87,
+   "end": 133.2
+  },
+  {
+   "speaker": "sora",
+   "text": "なるほど、朝から興味深い話題ですね。",
+   "reading": "なるほど、朝から興味深い話題ですね。",
+   "emotion": "thinking",
+   "chapter": 5,
+   "start": 133.48,
+   "end": 136.56
+  },
+  {
+   "speaker": "sora",
+   "text": "ハルさん的には、どこがポイントだと思います？",
+   "reading": "ハルさん的には、どこがポイントだと思います?",
+   "emotion": "question",
+   "chapter": 5,
+   "start": 136.84,
+   "end": 139.88
+  },
+  {
+   "speaker": "haru",
+   "text": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "reading": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "emotion": "neutral",
+   "chapter": 5,
+   "start": 140.16,
+   "end": 146.24
+  },
+  {
+   "speaker": "haru",
+   "text": "続いては東京周辺の美術イベントの話題です。ウォーカープラスから。「精緻な作品模型が登場！横浜そごう美術館「レオナルド・ダ・ヴィンチ展」」。",
+   "reading": "続いては東京周辺の美術イベントの話題です。ウォーカープラスから。精緻な作品模型が登場!横浜そごう美術館レオナルド・ダ・ヴィンチ展。",
+   "emotion": "neutral",
+   "chapter": 6,
+   "start": 147.53,
+   "end": 158.32
+  },
+  {
+   "speaker": "sora",
+   "text": "へえ〜、そうなんですね！",
+   "reading": "へえー、そうなんですね!",
+   "emotion": "excited",
+   "chapter": 6,
+   "start": 158.6,
+   "end": 160.36
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 6,
+   "start": 160.64,
+   "end": 163.94
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 6,
+   "start": 164.22,
+   "end": 172.12
+  },
+  {
+   "speaker": "haru",
+   "text": "続いては生成AIの話題です。新潮QUEから。「【人工知能学会前会長・栗原聡インタビュー #3】AI時代の教育術｜生成AIで子どもの思考力が低下する？ AI教育に要注意の年代とは」。",
+   "reading": "続いては生成エーアイの話題です。新潮キューユーイーから。人工知能学会前会長・栗原聡インタビュー #3エーアイ時代の教育術|生成エーアイで子どもの思考力が低下する? エーアイ教育に要注意の年代とは。",
+   "emotion": "neutral",
+   "chapter": 7,
+   "start": 173.41,
+   "end": 190.04
+  },
+  {
+   "speaker": "sora",
+   "text": "なるほど、朝から興味深い話題ですね。",
+   "reading": "なるほど、朝から興味深い話題ですね。",
+   "emotion": "thinking",
+   "chapter": 7,
+   "start": 190.32,
+   "end": 193.4
+  },
+  {
+   "speaker": "sora",
+   "text": "ハルさん的には、どこがポイントだと思います？",
+   "reading": "ハルさん的には、どこがポイントだと思います?",
+   "emotion": "question",
+   "chapter": 7,
+   "start": 193.68,
+   "end": 196.72
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 7,
+   "start": 197.0,
+   "end": 204.9
+  },
+  {
+   "speaker": "haru",
+   "text": "続いては開発技術の話題です。TECH NOISYから。「Gemini 4 Hydrogen - GitHub Copilotで一般提供 - 対象プラン・従量課金」。",
+   "reading": "続いては開発技術の話題です。ティーイーシーエイチ エヌオーアイエスワイから。ジェミニ 4 Hydrogen - ギットハブ Copilotで一般提供 - 対象プラン・従量課金。",
+   "emotion": "neutral",
+   "chapter": 8,
+   "start": 206.19,
+   "end": 219.98
+  },
+  {
+   "speaker": "sora",
+   "text": "へえ〜、そうなんですね！",
+   "reading": "へえー、そうなんですね!",
+   "emotion": "excited",
+   "chapter": 8,
+   "start": 220.26,
+   "end": 222.02
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 8,
+   "start": 222.3,
+   "end": 225.6
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 8,
+   "start": 225.88,
+   "end": 233.78
+  },
+  {
+   "speaker": "haru",
+   "text": "それから東京周辺の美術イベントの話題です。美術展ナビから。「【プレビュー】「スウェーデンのうつわ グスタフスベリのある暮らし」パナソニック汐留美術館で27年1月16日から…」。",
+   "reading": "それから東京周辺の美術イベントの話題です。美術展ナビから。プレビュースウェーデンのうつわ グスタフスベリのある暮らしパナソニック汐留美術館で27年1月16日から...。",
+   "emotion": "thinking",
+   "chapter": 9,
+   "start": 235.07,
+   "end": 248.86
+  },
+  {
+   "speaker": "sora",
+   "text": "ふむふむ、詳しく聞きたいです！",
+   "reading": "ふむふむ、詳しく聞きたいです!",
+   "emotion": "excited",
+   "chapter": 9,
+   "start": 249.14,
+   "end": 251.26
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 9,
+   "start": 251.54,
+   "end": 254.84
+  },
+  {
+   "speaker": "haru",
+   "text": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "reading": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "emotion": "neutral",
+   "chapter": 9,
+   "start": 255.12,
+   "end": 261.2
+  },
+  {
+   "speaker": "haru",
+   "text": "続いては、千葉テレビ放送から。「中野耕志 写真展「JETBIRDER」、東京・大阪で開催！航空機と野鳥の作品を展示」。",
+   "reading": "続いては、千葉テレビ放送から。中野耕志 写真展ジェーイーティービーアイアールDER、東京・大阪で開催!航空機と野鳥の作品を展示。",
+   "emotion": "neutral",
+   "chapter": 10,
+   "start": 262.49,
+   "end": 273.83
+  },
+  {
+   "speaker": "sora",
+   "text": "なるほど、朝から興味深い話題ですね。",
+   "reading": "なるほど、朝から興味深い話題ですね。",
+   "emotion": "thinking",
+   "chapter": 10,
+   "start": 274.11,
+   "end": 277.19
+  },
+  {
+   "speaker": "sora",
+   "text": "これって、僕たちの生活や仕事にはどう関わってきそうですか？",
+   "reading": "これって、僕たちの生活や仕事にはどう関わってきそうですか?",
+   "emotion": "question",
+   "chapter": 10,
+   "start": 277.47,
+   "end": 281.71
+  },
+  {
+   "speaker": "haru",
+   "text": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "reading": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "emotion": "neutral",
+   "chapter": 10,
+   "start": 281.99,
+   "end": 288.07
+  },
+  {
+   "speaker": "haru",
+   "text": "最後は、ウォーカープラスから。「【芸術の秋】東京が舞台の国際美術展「TOKYO ATLAS」開催中！台場、青海、天王洲…臨海エリアにアート作品がずらり！」。",
+   "reading": "最後は、ウォーカープラスから。芸術の秋東京が舞台の国際美術展ティーオーケーワイオー エーティーエルエーエス開催中!台場、青海、天王洲...臨海エリアにアート作品がずらり!。",
+   "emotion": "thinking",
+   "chapter": 11,
+   "start": 289.36,
+   "end": 304.39
+  },
+  {
+   "speaker": "sora",
+   "text": "へえ〜、そうなんですね！",
+   "reading": "へえー、そうなんですね!",
+   "emotion": "excited",
+   "chapter": 11,
+   "start": 304.67,
+   "end": 306.43
+  },
+  {
+   "speaker": "sora",
+   "text": "これって、僕たちの生活や仕事にはどう関わってきそうですか？",
+   "reading": "これって、僕たちの生活や仕事にはどう関わってきそうですか?",
+   "emotion": "question",
+   "chapter": 11,
+   "start": 306.71,
+   "end": 310.95
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 11,
+   "start": 311.23,
+   "end": 319.13
+  },
+  {
+   "speaker": "sora",
+   "text": "今日もいろんなニュースがありましたね！",
+   "reading": "今日もいろんなニュースがありましたね!",
+   "emotion": "excited",
+   "chapter": 12,
+   "start": 320.42,
+   "end": 322.24
+  },
+  {
+   "speaker": "haru",
+   "text": "気になった記事は、アプリのニュースカードから元の記事を読めます。",
+   "reading": "気になった記事は、アプリのニュースカードから元の記事を読めます。",
+   "emotion": "neutral",
+   "chapter": 12,
+   "start": 322.52,
+   "end": 326.7
+  },
+  {
+   "speaker": "sora",
+   "text": "それでは今日も一日、いってらっしゃい！",
+   "reading": "それでは今日も一日、いってらっしゃい!",
+   "emotion": "excited",
+   "chapter": 12,
+   "start": 326.98,
+   "end": 329.47
+  },
+  {
+   "speaker": "haru",
+   "text": "あさイチ ポプラジ、お相手はハルと、",
+   "reading": "あさイチ ポプラジ、お相手はハルと、",
+   "emotion": "neutral",
+   "chapter": 12,
+   "start": 329.75,
+   "end": 333.04
+  },
+  {
+   "speaker": "sora",
+   "text": "ソラでした！また明日〜！",
+   "reading": "ソラでした!また明日ー!",
+   "emotion": "excited",
+   "chapter": 12,
+   "start": 333.32,
+   "end": 334.98
+  }
+ ],
+ "sources": [
+  {
+   "id": "n5a18e7e6",
+   "title": "写真家ユージン・スミスの生誕100周年を回顧する写真展が東京都写真美術館で開催",
+   "source": "ウォーカープラス",
+   "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE8ySDJHOGozbXdIUnZXdmJHanRVU3pQamxmc3RPZ3VOQ1lwNE5YU2R4SVJmbkVOSDh6MkZ5NGRuUlNTQXZEODljaDVJbWdZcnd1OEh2b9IBWkFVX3lxTFBJOWsxVGlpd3RsVzRCOVgyUFBfalJHQmU2aEhOVExLT21YWldoaWd6ODQ1Q0VnMnJDN2JqMm43RnZKTjNYNHk4MnB1bXdET3pTSnBZdVk1RU1UZw?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-14T13:44:27+09:00",
+   "related": [],
+   "notes": []
+  },
+  {
+   "id": "nd06a2c18",
+   "title": "LLMエクスプレーナーによる生成AI出力結果の検証 : 企業情報",
+   "source": "NEC",
+   "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNcXcycE9kU0dZSGlpRW1Nb3VMM0ZzOG1xZU80VENjVVE0RzBKZEc2bUVsX0U5RFhUb3g0eGcwOTdVb3A3aUExZFlIbll4WFRsdzROU2lvYUVRZnEzYnRCb3VKNk0xVFFDaElaemNiMmZmLVp1aHFiczV6aExGNWJyVGNuRQ?oc=5",
+   "topic": "生成AI",
+   "published_at": "2026-11-14T09:48:51+09:00",
+   "related": [],
+   "notes": []
+  },
+  {
+   "id": "n8d73791c",
+   "title": "Azure Kamsaki oSushi (@kamsakihiyuuma) on X",
+   "source": "Howl.Link",
+   "url": "https://news.google.com/rss/articles/CBMiO0FVX3lxTE1oWTBrU0RWRDZjRGQ3Q0JscEdCY1B5WTFSenNDWVpqSkFDUWNTaWFtZFF1UFJ3WHZUOVZR?oc=5",
+   "topic": "クラウド",
+   "published_at": "2026-11-14T19:07:23+09:00",
+   "related": [],
+   "notes": []
+  },
+  {
+   "id": "n7d401b0b",
+   "title": "AlibabaのオープンコードレビューがGitHubで51,009スターを獲得し勢いを増す",
+   "source": "blockchain.news",
+   "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNeW9CcUVEdUs2blU3dWlRaUdnUUZrVXJQaGxRTkVwWHVQSGxPNnpkVkRQR0F5Qm1PaTYwaElsNFhVV2cyTHdzVGJZb2lGMGFTcm0zUXNkdFM1OF9zOEdDa2hzSi0xMHVkdFFoRFBqU3ZWLVUxamxHcEhhUWprbnNobQ?oc=5",
+   "topic": "開発技術",
+   "published_at": "2026-11-14T20:37:15+09:00",
+   "related": [],
+   "notes": []
+  },
+  {
+   "id": "n09ad1c16",
+   "title": "「Hugging Face」AI・機械学習特化の共有プラットフォーム",
+   "source": "窓の杜",
+   "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5Hc1BmYjlYVzlOS3J0aG9ySUtTSktDUngzMHVack1QWU0yS3RMUjBpSWxfbU8tSGdaaEtJVEZseG45UmN1T3FKTWFiMXVRRlQ1eHg1TWpnQWhzZ0p6dWJmbVBrWWNtZ1BfemZVSmJ3?oc=5",
+   "topic": "データサイエンス",
+   "published_at": "2026-11-15T00:05:00+09:00",
+   "related": [],
+   "notes": []
+  },
+  {
+   "id": "nccd41f6f",
+   "title": "精緻な作品模型が登場！横浜そごう美術館「レオナルド・ダ・ヴィンチ展」",
+   "source": "ウォーカープラス",
+   "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE9PSnFqdDh2T29hRjVfU0ZVWmFadjBJSmRYZWx6MGJaRGNNYVI1dENDbE9VZXJzbkJrakk0WmNuQ2N5T21IOVotUVo5bUJ2SmtIRkN3VtIBWkFVX3lxTFBCVi1YbUZERjFUOWxGM09qTG0xdDlpcHp1Vk5URWpsSE9STHZQLVBwNGNZdE9aSFRPOG4ySWNsRDhaQWNzMG9palZ6anB6d2toWFhCVXJ1Q25tdw?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-15T03:03:37+09:00",
+   "related": [],
+   "notes": []
+  },
+  {
+   "id": "n7e66095f",
+   "title": "【人工知能学会前会長・栗原聡インタビュー #3】AI時代の教育術｜生成AIで子どもの思考力が低下する？ AI教育に要注意の年代とは",
+   "source": "新潮QUE",
+   "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5PQ0VuLVhFYjhURFBMV09BVU9yanJEVGxJWk1scnJWYXotOVZoa2lSTXA0S1BtLVd3RmJVNDFLdWJfd011aEdNVkkyRTNlei1w?oc=5",
+   "topic": "生成AI",
+   "published_at": "2026-11-15T05:01:42+09:00",
+   "related": [],
+   "notes": []
+  },
+  {
+   "id": "n71992b49",
+   "title": "Gemini 4 Hydrogen - GitHub Copilotで一般提供 - 対象プラン・従量課金",
+   "source": "TECH NOISY",
+   "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBPUTh5Qm93VGxNZDRzRFNLOTB6blE1VmY5S2dZNE1OYXJLbGRvUktjSXVRSmRZRE1Ub1BzMmk5NExNeVFGY3ZUVTBuVUlEeDFtR1hpcFlra1lqc3J5ZUpEd3RwNlpKU2Z3SHZaVE03dGZoUktJNkQ3bUdR?oc=5",
+   "topic": "開発技術",
+   "published_at": "2026-11-14T19:07:07+09:00",
+   "related": [],
+   "notes": []
+  },
+  {
+   "id": "nd77ca723",
+   "title": "【プレビュー】「スウェーデンのうつわ グスタフスベリのある暮らし」パナソニック汐留美術館で27年1月16日から 北欧屈指の名陶の全貌を選りすぐりの約300点で堪能",
+   "source": "美術展ナビ",
+   "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1LMjVqbU1UUXhVbFFybGpVZVdYYmxYMW5rWnh0QjdIR1dwa2dnWnVaWEJwNENtR0xHRThPTWxqamRZeWhFdG9Dck1wdGljM1hVOHZZREVva0JyUE1QcnhUdjNtSTFNaG51?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-15T01:48:00+09:00",
+   "related": [],
+   "notes": []
+  },
+  {
+   "id": "na8088e5b",
+   "title": "中野耕志 写真展「JETBIRDER」、東京・大阪で開催！航空機と野鳥の作品を展示",
+   "source": "千葉テレビ放送",
+   "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBhVHJHb3llcDZ0ck9VVUVCbndpcjNyQ3ZwMjNaQUpvc1VwLS1OMnl6d0Y0UzJIampOZk05UWUtX2JCWGpPWFFZamFndjNFRG1sNlpKVlhKOW00bVA4WVplNlNmMlI?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-14T19:26:12+09:00",
+   "related": [],
+   "notes": []
+  },
+  {
+   "id": "n29e24b8b",
+   "title": "【芸術の秋】東京が舞台の国際美術展「TOKYO ATLAS」開催中！台場、青海、天王洲…臨海エリアにアート作品がずらり！",
+   "source": "ウォーカープラス",
+   "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5VZWVOMnVHTnIyUnYzZktabkR5bFNSUExfbXlCTUFUdXhWdnZreTRzWHRzUmR2MlFnUnRkTFYzd2dVQmhXTE1sWFM0ZnRPb3cyTG5MNG9kNzQ0d2R1ck9HRjRyYlVfODN0enhNRW1n?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-14T17:44:04+09:00",
+   "related": [],
+   "notes": []
+  }
+ ],
+ "readings": [],
+ "qa": {
+  "warnings": []
+ }
+}
