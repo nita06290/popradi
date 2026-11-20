@@ -1,0 +1,836 @@
+{
+ "id": "2026-11-14",
+ "date": "2026-11-14",
+ "title": "東京周辺の美術イベント・生成AIほか ニュース11本",
+ "summary": "東京周辺の美術イベント・生成AI・クラウドなど11本のニュースを2人でゆるっと紹介。",
+ "audio": "audio/2026-11-14.mp3",
+ "duration": 365.79,
+ "generated_at": "2026-11-14T05:42:21.332257+09:00",
+ "generator": {
+  "llm": "template",
+  "tts": "voicevox",
+  "sample": false,
+  "usage": {
+   "gemini:gemini-3.5-flash": {
+    "calls": 15,
+    "ok": 13,
+    "prompt_tokens": 12749,
+    "output_tokens": 17369,
+    "thinking_tokens": 39306,
+    "errors": {
+     "503": 2
+    }
+   }
+  }
+ },
+ "speakers": {
+  "haru": {
+   "name": "ハル",
+   "role": "解説役",
+   "color": "#FF7A3D",
+   "credit": "VOICEVOX:夜語トバリ"
+  },
+  "sora": {
+   "name": "ソラ",
+   "role": "聞き役",
+   "color": "#2EC4B6",
+   "credit": "VOICEVOX:青山龍星"
+  }
+ },
+ "chapters": [
+  {
+   "title": "オープニング",
+   "start": 1.44,
+   "source_ids": [],
+   "topic": ""
+  },
+  {
+   "title": "アーティゾン美術館が2027年展覧会スケジュール…",
+   "start": 23.11,
+   "source_ids": [
+    "n02949104"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "既存LLMの“重みを直接編集して”性能を上げる「…",
+   "start": 58.56,
+   "source_ids": [
+    "nee0e81b5"
+   ],
+   "topic": "生成AI"
+  },
+  {
+   "title": "GitHubの6万1,764リポジトリを標的に認…",
+   "start": 87.22,
+   "source_ids": [
+    "n3eecaf0b"
+   ],
+   "topic": "クラウド"
+  },
+  {
+   "title": "任天堂、GitHubに削除要請…",
+   "start": 118.99,
+   "source_ids": [
+    "nc47b78d9"
+   ],
+   "topic": "開発技術"
+  },
+  {
+   "title": "横浜市立大学、データサイエンス学部の定員60人か…",
+   "start": 146.06,
+   "source_ids": [
+    "n082356f6"
+   ],
+   "topic": "データサイエンス"
+  },
+  {
+   "title": "「オルセー美術館」展が上野・東京都美術館で…",
+   "start": 176.68,
+   "source_ids": [
+    "nf93a17d4"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "モリサワ 無料セミナー「生成AIの法的留意点とモ…",
+   "start": 204.74,
+   "source_ids": [
+    "n1c999f7e"
+   ],
+   "topic": "生成AI"
+  },
+  {
+   "title": "[ITmedia News]…",
+   "start": 235.4,
+   "source_ids": [
+    "ne07283a6"
+   ],
+   "topic": "開発技術"
+  },
+  {
+   "title": "国連加盟７０周年記念で写真展 東京…",
+   "start": 275.37,
+   "source_ids": [
+    "ndd6da178"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "ねこの京都。岩合光昭のねこ写真展が東京・京都で開…",
+   "start": 299.65,
+   "source_ids": [
+    "nbaeb7208"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "技術と表現のアート、東京都江東区の東京都現代美術…",
+   "start": 322.39,
+   "source_ids": [
+    "n3837873e"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "エンディング",
+   "start": 349.63,
+   "source_ids": [],
+   "topic": ""
+  }
+ ],
+ "lines": [
+  {
+   "speaker": "haru",
+   "text": "おはようございます！あさイチ ポプラジ、パーソナリティのハルです。",
+   "reading": "おはようございます!あさイチ ポプラジ、パーソナリティのハルです。",
+   "emotion": "excited",
+   "chapter": 0,
+   "start": 1.44,
+   "end": 6.35
+  },
+  {
+   "speaker": "sora",
+   "text": "おはようございまーす、ソラです！今日もニュースをゆるっとチェックしていきましょう！",
+   "reading": "おはようございまーす、ソラです!今日もニュースをゆるっとチェックしていきましょう!",
+   "emotion": "neutral",
+   "chapter": 0,
+   "start": 6.63,
+   "end": 11.76
+  },
+  {
+   "speaker": "haru",
+   "text": "今日は東京周辺の美術イベント、生成AI、クラウド、開発技術、データサイエンスから、11本のニュースを紹介します。",
+   "reading": "今日は東京周辺の美術イベント、生成エーアイ、クラウド、開発技術、データサイエンスから、11本のニュースを紹介します。",
+   "emotion": "neutral",
+   "chapter": 0,
+   "start": 12.04,
+   "end": 21.82
+  },
+  {
+   "speaker": "haru",
+   "text": "まずは東京周辺の美術イベントの話題です。美術展ナビから。「アーティゾン美術館が2027年展覧会スケジュールを発表 新収蔵展から荒川ナッシュ医、藤島武二、1960-70年代美術まで…」。",
+   "reading": "まずは東京周辺の美術イベントの話題です。美術展ナビから。アーティゾン美術館が2027年展覧会スケジュールを発表 新収蔵展から荒川ナッシュ医、藤島武二、1960-70年代美術まで...。",
+   "emotion": "thinking",
+   "chapter": 1,
+   "start": 23.11,
+   "end": 41.21
+  },
+  {
+   "speaker": "sora",
+   "text": "なるほど、朝から興味深い話題ですね。",
+   "reading": "なるほど、朝から興味深い話題ですね。",
+   "emotion": "thinking",
+   "chapter": 1,
+   "start": 41.49,
+   "end": 44.57
+  },
+  {
+   "speaker": "sora",
+   "text": "これって、僕たちの生活や仕事にはどう関わってきそうですか？",
+   "reading": "これって、僕たちの生活や仕事にはどう関わってきそうですか?",
+   "emotion": "question",
+   "chapter": 1,
+   "start": 44.85,
+   "end": 49.09
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 1,
+   "start": 49.37,
+   "end": 57.27
+  },
+  {
+   "speaker": "haru",
+   "text": "続いては生成AIの話題です。テクノエッジ TechnoEdgeから。「既存LLMの“重みを直接編集して”性能を上げる「Weight-Space Programming」…」。",
+   "reading": "続いては生成エーアイの話題です。テクノエッジ TechnoEdgeから。既存エルエルエムの“重みを直接編集して”性能を上げるWeight-Space Programming...。",
+   "emotion": "thinking",
+   "chapter": 2,
+   "start": 58.56,
+   "end": 71.55
+  },
+  {
+   "speaker": "sora",
+   "text": "なるほど、朝から興味深い話題ですね。",
+   "reading": "なるほど、朝から興味深い話題ですね。",
+   "emotion": "thinking",
+   "chapter": 2,
+   "start": 71.83,
+   "end": 74.91
+  },
+  {
+   "speaker": "sora",
+   "text": "ハルさん的には、どこがポイントだと思います？",
+   "reading": "ハルさん的には、どこがポイントだと思います?",
+   "emotion": "question",
+   "chapter": 2,
+   "start": 75.19,
+   "end": 78.23
+  },
+  {
+   "speaker": "haru",
+   "text": "見出しを見る限り、生成AIの分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "reading": "見出しを見る限り、生成エーアイの分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "emotion": "neutral",
+   "chapter": 2,
+   "start": 78.51,
+   "end": 85.93
+  },
+  {
+   "speaker": "haru",
+   "text": "それからクラウドの話題です。合同会社ロケットボーイズから。「GitHubの6万1,764リポジトリを標的に認証窃取 攻撃「wfx-loot」 少なくとも1,835件で不正コード実行…」。",
+   "reading": "それからクラウドの話題です。合同会社ロケットボーイズから。ギットハブの6万1,764リポジトリを標的に認証窃取 攻撃wfx-loot 少なくとも1,835件で不正コード実行...。",
+   "emotion": "thinking",
+   "chapter": 3,
+   "start": 87.22,
+   "end": 103.85
+  },
+  {
+   "speaker": "sora",
+   "text": "ええっ、もうそんな段階なんですか！",
+   "reading": "ええっ、もうそんな段階なんですか!",
+   "emotion": "question",
+   "chapter": 3,
+   "start": 104.13,
+   "end": 106.82
+  },
+  {
+   "speaker": "sora",
+   "text": "これって、僕たちの生活や仕事にはどう関わってきそうですか？",
+   "reading": "これって、僕たちの生活や仕事にはどう関わってきそうですか?",
+   "emotion": "question",
+   "chapter": 3,
+   "start": 107.1,
+   "end": 111.34
+  },
+  {
+   "speaker": "haru",
+   "text": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "reading": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "emotion": "neutral",
+   "chapter": 3,
+   "start": 111.62,
+   "end": 117.7
+  },
+  {
+   "speaker": "haru",
+   "text": "お次は開発技術の話題です。BigGo ファイナンスから。「任天堂、GitHubに削除要請 改造チップ用ファームウェア144リポジトリを一掃」。",
+   "reading": "お次は開発技術の話題です。BigGo ファイナンスから。任天堂、ギットハブに削除要請 改造チップ用ファームウェア144リポジトリを一掃。",
+   "emotion": "neutral",
+   "chapter": 4,
+   "start": 118.99,
+   "end": 130.84
+  },
+  {
+   "speaker": "sora",
+   "text": "ええっ、もうそんな段階なんですか！",
+   "reading": "ええっ、もうそんな段階なんですか!",
+   "emotion": "question",
+   "chapter": 4,
+   "start": 131.12,
+   "end": 133.81
+  },
+  {
+   "speaker": "sora",
+   "text": "ハルさん的には、どこがポイントだと思います？",
+   "reading": "ハルさん的には、どこがポイントだと思います?",
+   "emotion": "question",
+   "chapter": 4,
+   "start": 134.09,
+   "end": 137.13
+  },
+  {
+   "speaker": "haru",
+   "text": "見出しを見る限り、開発技術の分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "reading": "見出しを見る限り、開発技術の分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "emotion": "neutral",
+   "chapter": 4,
+   "start": 137.41,
+   "end": 144.77
+  },
+  {
+   "speaker": "haru",
+   "text": "続いてはデータサイエンスの話題です。日本経済新聞から。「横浜市立大学、データサイエンス学部の定員60人から倍増 2027年度から 学長「企業連携し課題解決」」。",
+   "reading": "続いてはデータサイエンスの話題です。日本経済新聞から。横浜市立大学、データサイエンス学部の定員60人から倍増 2027年度から 学長企業連携し課題解決。",
+   "emotion": "neutral",
+   "chapter": 5,
+   "start": 146.06,
+   "end": 160.27
+  },
+  {
+   "speaker": "sora",
+   "text": "なるほど、朝から興味深い話題ですね。",
+   "reading": "なるほど、朝から興味深い話題ですね。",
+   "emotion": "thinking",
+   "chapter": 5,
+   "start": 160.55,
+   "end": 163.63
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 5,
+   "start": 163.91,
+   "end": 167.21
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 5,
+   "start": 167.49,
+   "end": 175.39
+  },
+  {
+   "speaker": "haru",
+   "text": "お次は東京周辺の美術イベントの話題です。ファッションプレスから。「「オルセー美術館」展が上野・東京都美術館で、ゴッホの《星月夜》など約110点」。",
+   "reading": "お次は東京周辺の美術イベントの話題です。ファッションプレスから。オルセー美術館展が上野・東京都美術館で、ゴッホの《星月夜》など約110点。",
+   "emotion": "neutral",
+   "chapter": 6,
+   "start": 176.68,
+   "end": 189.06
+  },
+  {
+   "speaker": "sora",
+   "text": "ふむふむ、詳しく聞きたいです！",
+   "reading": "ふむふむ、詳しく聞きたいです!",
+   "emotion": "excited",
+   "chapter": 6,
+   "start": 189.34,
+   "end": 191.46
+  },
+  {
+   "speaker": "sora",
+   "text": "ハルさん的には、どこがポイントだと思います？",
+   "reading": "ハルさん的には、どこがポイントだと思います?",
+   "emotion": "question",
+   "chapter": 6,
+   "start": 191.74,
+   "end": 194.78
+  },
+  {
+   "speaker": "haru",
+   "text": "見出しを見る限り、東京周辺の美術イベントの分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "reading": "見出しを見る限り、東京周辺の美術イベントの分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "emotion": "neutral",
+   "chapter": 6,
+   "start": 195.06,
+   "end": 203.45
+  },
+  {
+   "speaker": "haru",
+   "text": "続いては生成AIの話題です。ニュープリネットから。「モリサワ 無料セミナー「生成AIの法的留意点とモリサワ新書体紹介」開催 知的財産分野に関するポイントを弁護士が解説【11月19日】」。",
+   "reading": "続いては生成エーアイの話題です。ニュープリネットから。モリサワ 無料セミナー生成エーアイの法的留意点とモリサワ新書体紹介開催 知的財産分野に関するポイントを弁護士が解説11月19日。",
+   "emotion": "neutral",
+   "chapter": 7,
+   "start": 204.74,
+   "end": 219.87
+  },
+  {
+   "speaker": "sora",
+   "text": "なるほど、朝から興味深い話題ですね。",
+   "reading": "なるほど、朝から興味深い話題ですね。",
+   "emotion": "thinking",
+   "chapter": 7,
+   "start": 220.15,
+   "end": 223.23
+  },
+  {
+   "speaker": "sora",
+   "text": "これって、僕たちの生活や仕事にはどう関わってきそうですか？",
+   "reading": "これって、僕たちの生活や仕事にはどう関わってきそうですか?",
+   "emotion": "question",
+   "chapter": 7,
+   "start": 223.51,
+   "end": 227.75
+  },
+  {
+   "speaker": "haru",
+   "text": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "reading": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "emotion": "neutral",
+   "chapter": 7,
+   "start": 228.03,
+   "end": 234.11
+  },
+  {
+   "speaker": "haru",
+   "text": "お次は開発技術の話題です。ITmedia NEWSから。「[ITmedia News] サイバーセキュリティクラウド、GitHubから顧客情報流出か 「セキュリティ企業として重く受け止め」」。",
+   "reading": "お次は開発技術の話題です。ITmedia エヌイーダブリューエスから。[ITmedia News] サイバーセキュリティクラウド、ギットハブから顧客情報流出か セキュリティ企業として重く受け止め。",
+   "emotion": "neutral",
+   "chapter": 8,
+   "start": 235.4,
+   "end": 249.2
+  },
+  {
+   "speaker": "sora",
+   "text": "ええっ、もうそんな段階なんですか！",
+   "reading": "ええっ、もうそんな段階なんですか!",
+   "emotion": "question",
+   "chapter": 8,
+   "start": 249.48,
+   "end": 252.17
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明によると、従業員が業務で使っていたGitHubの認証情報1件が外部に流出したことを、外部機関からの情報提供で確認した。",
+   "reading": "記事の説明によると、従業員が業務で使っていたギットハブの認証情報1件が外部に流出したことを、外部機関からの情報提供で確認した。",
+   "emotion": "neutral",
+   "chapter": 8,
+   "start": 252.45,
+   "end": 262.86
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 8,
+   "start": 263.14,
+   "end": 266.44
+  },
+  {
+   "speaker": "haru",
+   "text": "見出しを見る限り、開発技術の分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "reading": "見出しを見る限り、開発技術の分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "emotion": "neutral",
+   "chapter": 8,
+   "start": 266.72,
+   "end": 274.08
+  },
+  {
+   "speaker": "haru",
+   "text": "お次は東京周辺の美術イベントの話題です。山陽新聞から。「国連加盟７０周年記念で写真展 東京、日本とのつながり紹介」。",
+   "reading": "お次は東京周辺の美術イベントの話題です。山陽新聞から。国連加盟70周年記念で写真展 東京、日本とのつながり紹介。",
+   "emotion": "neutral",
+   "chapter": 9,
+   "start": 275.37,
+   "end": 286.28
+  },
+  {
+   "speaker": "sora",
+   "text": "ふむふむ、詳しく聞きたいです！",
+   "reading": "ふむふむ、詳しく聞きたいです!",
+   "emotion": "excited",
+   "chapter": 9,
+   "start": 286.56,
+   "end": 288.68
+  },
+  {
+   "speaker": "sora",
+   "text": "ハルさん的には、どこがポイントだと思います？",
+   "reading": "ハルさん的には、どこがポイントだと思います?",
+   "emotion": "question",
+   "chapter": 9,
+   "start": 288.96,
+   "end": 292.0
+  },
+  {
+   "speaker": "haru",
+   "text": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "reading": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "emotion": "neutral",
+   "chapter": 9,
+   "start": 292.28,
+   "end": 298.36
+  },
+  {
+   "speaker": "haru",
+   "text": "続いては、ウォーカープラスから。「ねこの京都。岩合光昭のねこ写真展が東京・京都で開催」。",
+   "reading": "続いては、ウォーカープラスから。ねこの京都。岩合光昭のねこ写真展が東京・京都で開催。",
+   "emotion": "neutral",
+   "chapter": 10,
+   "start": 299.65,
+   "end": 307.3
+  },
+  {
+   "speaker": "sora",
+   "text": "へえ〜、そうなんですね！",
+   "reading": "へえー、そうなんですね!",
+   "emotion": "excited",
+   "chapter": 10,
+   "start": 307.58,
+   "end": 309.34
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 10,
+   "start": 309.62,
+   "end": 312.92
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 10,
+   "start": 313.2,
+   "end": 321.1
+  },
+  {
+   "speaker": "haru",
+   "text": "最後は、ウォーカープラスから。「技術と表現のアート、東京都江東区の東京都現代美術館で「ライゾマティクス_マルティプレックス」が開催中」。",
+   "reading": "最後は、ウォーカープラスから。技術と表現のアート、東京都江東区の東京都現代美術館でライゾマティクス_マルティプレックスが開催中。",
+   "emotion": "neutral",
+   "chapter": 11,
+   "start": 322.39,
+   "end": 332.75
+  },
+  {
+   "speaker": "sora",
+   "text": "ふむふむ、詳しく聞きたいです！",
+   "reading": "ふむふむ、詳しく聞きたいです!",
+   "emotion": "excited",
+   "chapter": 11,
+   "start": 333.03,
+   "end": 335.15
+  },
+  {
+   "speaker": "sora",
+   "text": "これって、僕たちの生活や仕事にはどう関わってきそうですか？",
+   "reading": "これって、僕たちの生活や仕事にはどう関わってきそうですか?",
+   "emotion": "question",
+   "chapter": 11,
+   "start": 335.43,
+   "end": 339.67
+  },
+  {
+   "speaker": "haru",
+   "text": "見出しを見る限り、東京周辺の美術イベントの分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "reading": "見出しを見る限り、東京周辺の美術イベントの分野ではちょっと注目の動きですね。続報にも注目したいところです。",
+   "emotion": "neutral",
+   "chapter": 11,
+   "start": 339.95,
+   "end": 348.34
+  },
+  {
+   "speaker": "sora",
+   "text": "今日もいろんなニュースがありましたね！",
+   "reading": "今日もいろんなニュースがありましたね!",
+   "emotion": "excited",
+   "chapter": 12,
+   "start": 349.63,
+   "end": 351.45
+  },
+  {
+   "speaker": "haru",
+   "text": "気になった記事は、アプリのニュースカードから元の記事を読めます。",
+   "reading": "気になった記事は、アプリのニュースカードから元の記事を読めます。",
+   "emotion": "neutral",
+   "chapter": 12,
+   "start": 351.73,
+   "end": 355.91
+  },
+  {
+   "speaker": "sora",
+   "text": "それでは今日も一日、いってらっしゃい！",
+   "reading": "それでは今日も一日、いってらっしゃい!",
+   "emotion": "excited",
+   "chapter": 12,
+   "start": 356.19,
+   "end": 358.68
+  },
+  {
+   "speaker": "haru",
+   "text": "あさイチ ポプラジ、お相手はハルと、",
+   "reading": "あさイチ ポプラジ、お相手はハルと、",
+   "emotion": "neutral",
+   "chapter": 12,
+   "start": 358.96,
+   "end": 362.25
+  },
+  {
+   "speaker": "sora",
+   "text": "ソラでした！また明日〜！",
+   "reading": "ソラでした!また明日ー!",
+   "emotion": "excited",
+   "chapter": 12,
+   "start": 362.53,
+   "end": 364.19
+  }
+ ],
+ "sources": [
+  {
+   "id": "n02949104",
+   "title": "アーティゾン美術館が2027年展覧会スケジュールを発表 新収蔵展から荒川ナッシュ医、藤島武二、1960-70年代美術まで、注目の4展を開催 充実のコレクション選にも注目",
+   "source": "美術展ナビ",
+   "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBtNWJ5aTJNLVo5V0dzOEloNVpPSVJzaDhqVlFZcFRjclRId3ZtRDQ0UkJCcWtfQlRub1dwNGthdXhPOUtOQTFtTWZNLU01VWtrdEwxZnlWWUFtOXFOd3FPTWtoWnZlbExP?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-14T01:47:00+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「アーティゾン美術館」",
+     "url": "https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%BC%E3%83%86%E3%82%A3%E3%82%BE%E3%83%B3%E7%BE%8E%E8%A1%93%E9%A4%A8"
+    },
+    {
+     "source": "Wikipedia「荒川ナッシュ医」",
+     "url": "https://ja.wikipedia.org/wiki/%E8%8D%92%E5%B7%9D%E3%83%8A%E3%83%83%E3%82%B7%E3%83%A5%E5%8C%BB"
+    },
+    {
+     "source": "Wikipedia「藤島武二」",
+     "url": "https://ja.wikipedia.org/wiki/%E8%97%A4%E5%B3%B6%E6%AD%A6%E4%BA%8C"
+    }
+   ]
+  },
+  {
+   "id": "nee0e81b5",
+   "title": "既存LLMの“重みを直接編集して”性能を上げる「Weight-Space Programming」、3D空間をコード生成するローカルAI「Qwen3.5-4B-3D-Coder」など生成AI技術5つを解説（生成AIウィークリー）",
+   "source": "テクノエッジ TechnoEdge",
+   "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE44a3BsdTY3T2hHU18wN1ZHM0YtQ3oyUTJLZWN4YVByajlfeWlzLVY3bkJRMDZvcW1vT3BZX0VxdW10RmxIbXowNVlFRUpRSzZpa2ktRmpkYVpEcWJ4M0FfaThveGd3Mzg?oc=5",
+   "topic": "生成AI",
+   "published_at": "2026-11-13T11:26:34+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「大規模言語モデル」",
+     "url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E8%A6%8F%E6%A8%A1%E8%A8%80%E8%AA%9E%E3%83%A2%E3%83%87%E3%83%AB"
+    }
+   ]
+  },
+  {
+   "id": "n3eecaf0b",
+   "title": "GitHubの6万1,764リポジトリを標的に認証窃取 攻撃「wfx-loot」 少なくとも1,835件で不正コード実行、AWS・Azureへの侵害拡大も|セキュリティニュースのセキュリティ対策Lab",
+   "source": "合同会社ロケットボーイズ",
+   "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPVmNUZzBCU1AwZkJoY0szRkQ3YTc3cHdXZWpNRXdBeFFRY2ZmQ0dBMTJWMkRFaTVjbjVXbGFwTFZ4QngwSlNRLWh4cGdkZHZBQmJLSGlLbWxha2NWRmRkMWg1TC1VaWlLMVJ6Z0NDWEZnczVkY3ZrTWNrTG9FTW1RT0FpcDNQMlpwbVhHdG55REN0RVdzWVBhVEtNWXJYWjRIdlhVUXBB?oc=5",
+   "topic": "クラウド",
+   "published_at": "2026-11-13T09:27:04+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「GitHub」",
+     "url": "https://ja.wikipedia.org/wiki/GitHub"
+    },
+    {
+     "source": "Wikipedia「Amazon Web Services」",
+     "url": "https://ja.wikipedia.org/wiki/Amazon_Web_Services"
+    },
+    {
+     "source": "Wikipedia「Microsoft Azure」",
+     "url": "https://ja.wikipedia.org/wiki/Microsoft_Azure"
+    }
+   ]
+  },
+  {
+   "id": "nc47b78d9",
+   "title": "任天堂、GitHubに削除要請 改造チップ用ファームウェア144リポジトリを一掃",
+   "source": "BigGo ファイナンス",
+   "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1XUVJJOTJac0lBRmZQeWtPQzB5VTA4RFBEbWNYcmU2cGRIbXRLYjFvejZXd05yUnMwZDV3V19QUHNEbTVZS2hIb3c0VjA4akpoVXN0b0VPR2hMYzVaSzhLT1JIeG83U0hmSGx1UUs0MktLb2NB?oc=5",
+   "topic": "開発技術",
+   "published_at": "2026-11-14T04:55:00+09:00",
+   "related": [
+    "任天堂、GitHubのMODチップ・エミュレータリポジトリ200件余りの削除を要請（게임메카）"
+   ],
+   "notes": [
+    {
+     "source": "Wikipedia「任天堂」",
+     "url": "https://ja.wikipedia.org/wiki/%E4%BB%BB%E5%A4%A9%E5%A0%82"
+    },
+    {
+     "source": "Wikipedia「GitHub」",
+     "url": "https://ja.wikipedia.org/wiki/GitHub"
+    }
+   ]
+  },
+  {
+   "id": "n082356f6",
+   "title": "横浜市立大学、データサイエンス学部の定員60人から倍増 2027年度から 学長「企業連携し課題解決」",
+   "source": "日本経済新聞",
+   "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE96WEpicloxd0RxUXFzOW9vZm5IbW1tRkYyS3Qyc0owazRQQXJ3WVYwelZwTVNXUTFlalcxVFFJVUxxQlp4TlEwSG1DNVZNcGl0VjdzLVpCVWhxMEp3RHhROGlrMlk1RjZKNFhONA?oc=5",
+   "topic": "データサイエンス",
+   "published_at": "2026-11-14T01:49:00+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「横浜市立大学」",
+     "url": "https://ja.wikipedia.org/wiki/%E6%A8%AA%E6%B5%9C%E5%B8%82%E7%AB%8B%E5%A4%A7%E5%AD%A6"
+    }
+   ]
+  },
+  {
+   "id": "nf93a17d4",
+   "title": "「オルセー美術館」展が上野・東京都美術館で、ゴッホの《星月夜》など約110点",
+   "source": "ファッションプレス",
+   "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5COEN0ZTdYWjMxT0RMVndacW5GdVhHZFNhelJXLUQ2czcweFFTaTMyV2hXM1NVc0UxajZzdkRDcXVWSFZVU2JfZ0MzVnpPQmVjNEVkTWx0NzhYMVFvS0NqM2V0Vk9zcVRI?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-13T20:21:36+09:00",
+   "related": [
+    "「オルセー美術館」展が上野・東京都美術館で、ゴッホの《星月夜》など約110点 [ページ2 / 全2ページ]（ファッションプレス）"
+   ],
+   "notes": [
+    {
+     "source": "Wikipedia「オルセー美術館」",
+     "url": "https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%AB%E3%82%BB%E3%83%BC%E7%BE%8E%E8%A1%93%E9%A4%A8"
+    },
+    {
+     "source": "Wikipedia「東京都美術館」",
+     "url": "https://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E9%83%BD%E7%BE%8E%E8%A1%93%E9%A4%A8"
+    },
+    {
+     "source": "Wikipedia「星月夜」",
+     "url": "https://ja.wikipedia.org/wiki/%E6%98%9F%E6%9C%88%E5%A4%9C"
+    }
+   ]
+  },
+  {
+   "id": "n1c999f7e",
+   "title": "モリサワ 無料セミナー「生成AIの法的留意点とモリサワ新書体紹介」開催 知的財産分野に関するポイントを弁護士が解説【11月19日】",
+   "source": "ニュープリネット",
+   "url": "https://news.google.com/rss/articles/CBMihgJBVV95cUxNbFFhOXlTSEU0RndnLWJjRnpzMndBa1RmLUd3TjQzTENSaC1jcklDUE9DXzFzQ3c3NXZzODlrMEd2cjRaWExBSU9SN2pLWFNfNjZLRjRaSFc4LXA5RjRaRjRYVHVaVlhOY2xlSFBlOENtc0REN2hCdkJrYlRlLU1rXzNqUzQ0bHFheGRhSEdmNFVrbU5RbVZxSEFGc3hzQlkyM0I3U1RoNTA5b2FPTTZMam14cEd6OEJ3Y3UyUHZaekR4U1RjeVJTV1V5VUdzYnAzMzFnendaQ3BsRU9wZXBEcC1ST0NwUXAwRVk0WlZFUE9wUnN6Qmxtb1puaGpzMW1Eb25kZmx3?oc=5",
+   "topic": "生成AI",
+   "published_at": "2026-11-14T04:09:51+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「モリサワ」",
+     "url": "https://ja.wikipedia.org/wiki/%E3%83%A2%E3%83%AA%E3%82%B5%E3%83%AF"
+    }
+   ]
+  },
+  {
+   "id": "ne07283a6",
+   "title": "[ITmedia News] サイバーセキュリティクラウド、GitHubから顧客情報流出か 「セキュリティ企業として重く受け止め」",
+   "source": "ITmedia NEWS",
+   "url": "https://www.itmedia.co.jp/news/article/2611/13/2000003163/",
+   "topic": "開発技術",
+   "published_at": "2026-11-13T08:15:50+09:00",
+   "related": [
+    "サイバーセキュリティクラウド、GitHubから顧客情報流出か 「セキュリティ企業として重く受け止め」（画像）（1/3枚目）（ITmedia）",
+    "サイバーセキュリティクラウド、GitHubから顧客情報流出か 「セキュリティ企業として重く受け止め」（Howl.Link）",
+    "サイバーセキュリティクラウド、GitHubから顧客情報流出か 「セキュリティ企業として重く受け止め」（ITmedia）"
+   ],
+   "notes": [
+    {
+     "source": "Wikipedia「サイバーセキュリティクラウド」",
+     "url": "https://ja.wikipedia.org/wiki/%E3%82%B5%E3%82%A4%E3%83%90%E3%83%BC%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%82%AF%E3%83%A9%E3%82%A6%E3%83%89"
+    },
+    {
+     "source": "Wikipedia「ITmedia」",
+     "url": "https://ja.wikipedia.org/wiki/ITmedia"
+    },
+    {
+     "source": "Wikipedia「GitHub」",
+     "url": "https://ja.wikipedia.org/wiki/GitHub"
+    }
+   ]
+  },
+  {
+   "id": "ndd6da178",
+   "title": "国連加盟７０周年記念で写真展 東京、日本とのつながり紹介",
+   "source": "山陽新聞",
+   "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5GUmpieHpSNnVJYWVKVW5WVVFqOWg1Uk1GTWRuODEycnVOZHRXMVhoNVRHVFRMdWJxRjA1VnFFbWFmYUF4QUFUM2MzdVV5ekw1OHVNNUR4c2V3MmQw?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-13T19:36:14+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「国際連合」",
+     "url": "https://ja.wikipedia.org/wiki/%E5%9B%BD%E9%9A%9B%E9%80%A3%E5%90%88"
+    }
+   ]
+  },
+  {
+   "id": "nbaeb7208",
+   "title": "ねこの京都。岩合光昭のねこ写真展が東京・京都で開催",
+   "source": "ウォーカープラス",
+   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5HZVNCbXl6T2VEQXR4YURpSnp3dmhvT2RrTUxIRGwzcjFJSl82bVhVSFJJQzN2SUlCVkxIMVBVNHlTY3RVNWRvWWJSQ2ptUDNNM3d4MzlhdDltaTljTS0tVk0zZ2lvVU5qLWc?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-13T16:32:15+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「岩合光昭」",
+     "url": "https://ja.wikipedia.org/wiki/%E5%B2%A9%E5%90%88%E5%85%89%E6%98%AD"
+    }
+   ]
+  },
+  {
+   "id": "n3837873e",
+   "title": "技術と表現のアート、東京都江東区の東京都現代美術館で「ライゾマティクス_マルティプレックス」が開催中",
+   "source": "ウォーカープラス",
+   "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1LWTk2MlFtNzhEdjFoU1l3ci01UnA3SDY1a2JtMkg2RldRa0Vxclo4aDFNUlFUUDRETW5rTVpQY0ZNUTRzOE80cUR6RWxZdVd3cmoyQW1n0gFbQVVfeXFMTXFnYkNnMG95azRnLXM1ckRLdktQRVZVZzlFa3BNZUctbjM2emxJSkJCTHFROGZ6NWpad0FMYXJhdjdnbUJLT3RFQXpSZlNNUnl0OVNrQTI4LUNKSQ?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-13T15:35:34+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「東京都現代美術館」",
+     "url": "https://ja.wikipedia.org/wiki/%E6%9D%B1%E4%BA%AC%E9%83%BD%E7%8F%BE%E4%BB%A3%E7%BE%8E%E8%A1%93%E9%A4%A8"
+    }
+   ]
+  }
+ ],
+ "readings": [],
+ "qa": {
+  "warnings": []
+ }
+}
