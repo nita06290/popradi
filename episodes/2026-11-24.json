@@ -1,0 +1,646 @@
+{
+ "id": "2026-11-24",
+ "date": "2026-11-24",
+ "title": "東京周辺の美術イベント・生成AIほか ニュース8本",
+ "summary": "東京周辺の美術イベント・生成AI・クラウドなど8本のニュースを2人でゆるっと紹介。",
+ "audio": "audio/2026-11-24.mp3",
+ "duration": 242.74,
+ "generated_at": "2026-11-24T05:41:26.484494+09:00",
+ "generator": {
+  "llm": "template",
+  "tts": "voicevox",
+  "sample": false,
+  "usage": {
+   "gemini:gemini-3.5-flash": {
+    "calls": 10,
+    "ok": 9,
+    "prompt_tokens": 7487,
+    "output_tokens": 14824,
+    "thinking_tokens": 32396,
+    "errors": {}
+   },
+   "gemini:gemini-3.5-flash-lite": {
+    "calls": 4,
+    "ok": 0,
+    "prompt_tokens": 0,
+    "output_tokens": 0,
+    "thinking_tokens": 0,
+    "errors": {
+     "503": 4
+    }
+   },
+   "gemini:gemini-3.8-flash": {
+    "calls": 4,
+    "ok": 0,
+    "prompt_tokens": 0,
+    "output_tokens": 0,
+    "thinking_tokens": 0,
+    "errors": {
+     "503": 4
+    }
+   },
+   "gemini:gemini-flash-lite-latest": {
+    "calls": 4,
+    "ok": 1,
+    "prompt_tokens": 915,
+    "output_tokens": 997,
+    "thinking_tokens": 0,
+    "errors": {
+     "503": 3
+    }
+   }
+  }
+ },
+ "speakers": {
+  "haru": {
+   "name": "ハル",
+   "role": "解説役",
+   "color": "#FF7A3D",
+   "credit": "VOICEVOX:夜語トバリ"
+  },
+  "sora": {
+   "name": "ソラ",
+   "role": "聞き役",
+   "color": "#2EC4B6",
+   "credit": "VOICEVOX:青山龍星"
+  }
+ },
+ "chapters": [
+  {
+   "title": "オープニング",
+   "start": 1.44,
+   "source_ids": [],
+   "topic": ""
+  },
+  {
+   "title": "東京で世界初開催、パガーニとダ・ヴィンチの展覧会",
+   "start": 21.67,
+   "source_ids": [
+    "n50716924"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "大隅典子 生成AIに感じる認知症との共通点",
+   "start": 43.75,
+   "source_ids": [
+    "n257488b6"
+   ],
+   "topic": "生成AI"
+  },
+  {
+   "title": "AWS、Strands Decider…",
+   "start": 67.32,
+   "source_ids": [
+    "n56f70806"
+   ],
+   "topic": "クラウド"
+  },
+  {
+   "title": "GitHub Actions は仕様に違反する…",
+   "start": 93.91,
+   "source_ids": [
+    "nae4bf0de"
+   ],
+   "topic": "開発技術"
+  },
+  {
+   "title": "東京・竹久夢二美術館で「入門展」…",
+   "start": 120.36,
+   "source_ids": [
+    "n5ba5e2a4"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "派遣スタッフの生成AI活用の実態…",
+   "start": 146.48,
+   "source_ids": [
+    "nb894f248"
+   ],
+   "topic": "生成AI"
+  },
+  {
+   "title": "ヨシダナギによる少数民族の姿を写し出した写真展が…",
+   "start": 173.42,
+   "source_ids": [
+    "n709969f6"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "「臨床美術+育脳Art 作品展Vol6」世田谷美…",
+   "start": 199.74,
+   "source_ids": [
+    "n170ed36f"
+   ],
+   "topic": "東京周辺の美術イベント"
+  },
+  {
+   "title": "エンディング",
+   "start": 226.58,
+   "source_ids": [],
+   "topic": ""
+  }
+ ],
+ "lines": [
+  {
+   "speaker": "haru",
+   "text": "おはようございます！あさイチ ポプラジ、パーソナリティのハルです。",
+   "reading": "おはようございます!あさイチ ポプラジ、パーソナリティのハルです。",
+   "emotion": "excited",
+   "chapter": 0,
+   "start": 1.44,
+   "end": 6.35
+  },
+  {
+   "speaker": "sora",
+   "text": "おはようございまーす、ソラです！今日もニュースをゆるっとチェックしていきましょう！",
+   "reading": "おはようございまーす、ソラです!今日もニュースをゆるっとチェックしていきましょう!",
+   "emotion": "neutral",
+   "chapter": 0,
+   "start": 6.63,
+   "end": 11.76
+  },
+  {
+   "speaker": "haru",
+   "text": "今日は東京周辺の美術イベント、生成AI、クラウド、開発技術から、8本のニュースを紹介します。",
+   "reading": "今日は東京周辺の美術イベント、生成エーアイ、クラウド、開発技術から、8本のニュースを紹介します。",
+   "emotion": "neutral",
+   "chapter": 0,
+   "start": 12.04,
+   "end": 20.38
+  },
+  {
+   "speaker": "haru",
+   "text": "まずは東京周辺の美術イベントの話題です。Dellows Newsから。「東京で世界初開催、パガーニとダ・ヴィンチの展覧会」。",
+   "reading": "まずは東京周辺の美術イベントの話題です。Dellows Newsから。東京で世界初開催、パガーニとダ・ヴィンチの展覧会。",
+   "emotion": "neutral",
+   "chapter": 1,
+   "start": 21.67,
+   "end": 30.74
+  },
+  {
+   "speaker": "sora",
+   "text": "へえ〜、そうなんですね！",
+   "reading": "へえー、そうなんですね!",
+   "emotion": "excited",
+   "chapter": 1,
+   "start": 31.02,
+   "end": 32.78
+  },
+  {
+   "speaker": "sora",
+   "text": "ハルさん的には、どこがポイントだと思います？",
+   "reading": "ハルさん的には、どこがポイントだと思います?",
+   "emotion": "question",
+   "chapter": 1,
+   "start": 33.06,
+   "end": 36.1
+  },
+  {
+   "speaker": "haru",
+   "text": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "reading": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "emotion": "neutral",
+   "chapter": 1,
+   "start": 36.38,
+   "end": 42.46
+  },
+  {
+   "speaker": "haru",
+   "text": "お次は生成AIの話題です。日経BOOKプラスから。「大隅典子 生成AIに感じる認知症との共通点」。",
+   "reading": "お次は生成エーアイの話題です。日経ビーオーオーケープラスから。大隅典子 生成エーアイに感じる認知症との共通点。",
+   "emotion": "neutral",
+   "chapter": 2,
+   "start": 43.75,
+   "end": 53.12
+  },
+  {
+   "speaker": "sora",
+   "text": "ええっ、もうそんな段階なんですか！",
+   "reading": "ええっ、もうそんな段階なんですか!",
+   "emotion": "question",
+   "chapter": 2,
+   "start": 53.4,
+   "end": 56.09
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 2,
+   "start": 56.37,
+   "end": 59.67
+  },
+  {
+   "speaker": "haru",
+   "text": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "reading": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "emotion": "neutral",
+   "chapter": 2,
+   "start": 59.95,
+   "end": 66.03
+  },
+  {
+   "speaker": "haru",
+   "text": "続いてはクラウドの話題です。Unite.AIから。「AWS、Strands Decider V2を公開し、対応するコーディングエージェントを拡大」。",
+   "reading": "続いてはクラウドの話題です。Unite.エーアイから。エーダブリューエス、Strands Decider V2を公開し、対応するコーディングエージェントを拡大。",
+   "emotion": "neutral",
+   "chapter": 3,
+   "start": 67.32,
+   "end": 78.82
+  },
+  {
+   "speaker": "sora",
+   "text": "へえ〜、そうなんですね！",
+   "reading": "へえー、そうなんですね!",
+   "emotion": "excited",
+   "chapter": 3,
+   "start": 79.1,
+   "end": 80.86
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 3,
+   "start": 81.14,
+   "end": 84.44
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 3,
+   "start": 84.72,
+   "end": 92.62
+  },
+  {
+   "speaker": "haru",
+   "text": "続いては開発技術の話題です。news.lavx.huから。「GitHub Actions は仕様に違反する YAML を受け入れます。」。",
+   "reading": "続いては開発技術の話題です。news.lavx.huから。ギットハブ アクションズ は仕様に違反する ワイエーエムエル を受け入れます。。",
+   "emotion": "neutral",
+   "chapter": 4,
+   "start": 93.91,
+   "end": 105.27
+  },
+  {
+   "speaker": "sora",
+   "text": "へえ〜、そうなんですね！",
+   "reading": "へえー、そうなんですね!",
+   "emotion": "excited",
+   "chapter": 4,
+   "start": 105.55,
+   "end": 107.31
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 4,
+   "start": 107.59,
+   "end": 110.89
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 4,
+   "start": 111.17,
+   "end": 119.07
+  },
+  {
+   "speaker": "haru",
+   "text": "お次は東京周辺の美術イベントの話題です。山陽新聞から。「東京・竹久夢二美術館で「入門展」 作品鑑賞のヒント多角的に」。",
+   "reading": "お次は東京周辺の美術イベントの話題です。山陽新聞から。東京・竹久夢二美術館で入門展 作品鑑賞のヒント多角的に。",
+   "emotion": "neutral",
+   "chapter": 5,
+   "start": 120.36,
+   "end": 131.39
+  },
+  {
+   "speaker": "sora",
+   "text": "へえ〜、そうなんですね！",
+   "reading": "へえー、そうなんですね!",
+   "emotion": "excited",
+   "chapter": 5,
+   "start": 131.67,
+   "end": 133.43
+  },
+  {
+   "speaker": "sora",
+   "text": "ちなみに、これってどれくらい話題になってるんですか？",
+   "reading": "ちなみに、これってどれくらい話題になってるんですか?",
+   "emotion": "question",
+   "chapter": 5,
+   "start": 133.71,
+   "end": 137.01
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 5,
+   "start": 137.29,
+   "end": 145.19
+  },
+  {
+   "speaker": "haru",
+   "text": "それから生成AIの話題です。山陽新聞から。「派遣スタッフの生成AI活用の実態、求めているのは「Excelでのデータ集計の時短」など、実務直結型のスキル」。",
+   "reading": "それから生成エーアイの話題です。山陽新聞から。派遣スタッフの生成エーアイ活用の実態、求めているのはExcelでのデータ集計の時短など、実務直結型のスキル。",
+   "emotion": "neutral",
+   "chapter": 6,
+   "start": 146.48,
+   "end": 159.09
+  },
+  {
+   "speaker": "sora",
+   "text": "なるほど、朝から興味深い話題ですね。",
+   "reading": "なるほど、朝から興味深い話題ですね。",
+   "emotion": "thinking",
+   "chapter": 6,
+   "start": 159.37,
+   "end": 162.45
+  },
+  {
+   "speaker": "sora",
+   "text": "ハルさん的には、どこがポイントだと思います？",
+   "reading": "ハルさん的には、どこがポイントだと思います?",
+   "emotion": "question",
+   "chapter": 6,
+   "start": 162.73,
+   "end": 165.77
+  },
+  {
+   "speaker": "haru",
+   "text": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "reading": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "emotion": "neutral",
+   "chapter": 6,
+   "start": 166.05,
+   "end": 172.13
+  },
+  {
+   "speaker": "haru",
+   "text": "それから東京周辺の美術イベントの話題です。ウォーカープラスから。「ヨシダナギによる少数民族の姿を写し出した写真展が池袋で開催」。",
+   "reading": "それから東京周辺の美術イベントの話題です。ウォーカープラスから。ヨシダナギによる少数民族の姿を写し出した写真展が池袋で開催。",
+   "emotion": "neutral",
+   "chapter": 7,
+   "start": 173.42,
+   "end": 183.57
+  },
+  {
+   "speaker": "sora",
+   "text": "おお、それは気になりますね。",
+   "reading": "おお、それは気になりますね。",
+   "emotion": "excited",
+   "chapter": 7,
+   "start": 183.85,
+   "end": 185.75
+  },
+  {
+   "speaker": "sora",
+   "text": "これって、僕たちの生活や仕事にはどう関わってきそうですか？",
+   "reading": "これって、僕たちの生活や仕事にはどう関わってきそうですか?",
+   "emotion": "question",
+   "chapter": 7,
+   "start": 186.03,
+   "end": 190.27
+  },
+  {
+   "speaker": "haru",
+   "text": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "reading": "記事の説明だけだと詳しいところまでは分からないので、気になる人はアプリのリンクから元の記事をチェックしてみてください。",
+   "emotion": "calm",
+   "chapter": 7,
+   "start": 190.55,
+   "end": 198.45
+  },
+  {
+   "speaker": "haru",
+   "text": "最後は、美術展ナビから。「「臨床美術+育脳Art 作品展Vol6」世田谷美術館で11月29日まで 3歳から102歳までの作品が勢ぞろい」。",
+   "reading": "最後は、美術展ナビから。臨床美術+育脳Art 作品展Vol6世田谷美術館で11月29日まで 3歳から102歳までの作品が勢ぞろい。",
+   "emotion": "neutral",
+   "chapter": 8,
+   "start": 199.74,
+   "end": 212.23
+  },
+  {
+   "speaker": "sora",
+   "text": "おお、それは気になりますね。",
+   "reading": "おお、それは気になりますね。",
+   "emotion": "excited",
+   "chapter": 8,
+   "start": 212.51,
+   "end": 214.41
+  },
+  {
+   "speaker": "sora",
+   "text": "これって、僕たちの生活や仕事にはどう関わってきそうですか？",
+   "reading": "これって、僕たちの生活や仕事にはどう関わってきそうですか?",
+   "emotion": "question",
+   "chapter": 8,
+   "start": 214.69,
+   "end": 218.93
+  },
+  {
+   "speaker": "haru",
+   "text": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "reading": "ここから先は推測になっちゃうので、詳しくは元の記事で確かめてもらうのが一番ですね。",
+   "emotion": "neutral",
+   "chapter": 8,
+   "start": 219.21,
+   "end": 225.29
+  },
+  {
+   "speaker": "sora",
+   "text": "今日もいろんなニュースがありましたね！",
+   "reading": "今日もいろんなニュースがありましたね!",
+   "emotion": "excited",
+   "chapter": 9,
+   "start": 226.58,
+   "end": 228.4
+  },
+  {
+   "speaker": "haru",
+   "text": "気になった記事は、アプリのニュースカードから元の記事を読めます。",
+   "reading": "気になった記事は、アプリのニュースカードから元の記事を読めます。",
+   "emotion": "neutral",
+   "chapter": 9,
+   "start": 228.68,
+   "end": 232.86
+  },
+  {
+   "speaker": "sora",
+   "text": "それでは今日も一日、いってらっしゃい！",
+   "reading": "それでは今日も一日、いってらっしゃい!",
+   "emotion": "excited",
+   "chapter": 9,
+   "start": 233.14,
+   "end": 235.63
+  },
+  {
+   "speaker": "haru",
+   "text": "あさイチ ポプラジ、お相手はハルと、",
+   "reading": "あさイチ ポプラジ、お相手はハルと、",
+   "emotion": "neutral",
+   "chapter": 9,
+   "start": 235.91,
+   "end": 239.2
+  },
+  {
+   "speaker": "sora",
+   "text": "ソラでした！また明日〜！",
+   "reading": "ソラでした!また明日ー!",
+   "emotion": "excited",
+   "chapter": 9,
+   "start": 239.48,
+   "end": 241.14
+  }
+ ],
+ "sources": [
+  {
+   "id": "n50716924",
+   "title": "東京で世界初開催、パガーニとダ・ヴィンチの展覧会",
+   "source": "Dellows News",
+   "url": "https://news.google.com/rss/articles/CBMiR0FVX3lxTE8zeHlWQWVCcXNvZUdXTXFpQVFRM2dzUWlMaFJIWk14YU1tQVpHT21SVVVJNm8tNWJvaUd3aU5DdFVKcWMtZ05N?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-24T00:15:49+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「パガーニ」",
+     "url": "https://ja.wikipedia.org/wiki/%E3%83%91%E3%82%AC%E3%83%BC%E3%83%8B"
+    },
+    {
+     "source": "Wikipedia「レオナルド・ダ・ヴィンチ」",
+     "url": "https://ja.wikipedia.org/wiki/%E3%83%AC%E3%82%AA%E3%83%8A%E3%83%AB%E3%83%89%E3%83%BB%E3%83%80%E3%83%BB%E3%83%B4%E3%82%A3%E3%83%B3%E3%83%81"
+    }
+   ]
+  },
+  {
+   "id": "n257488b6",
+   "title": "大隅典子 生成AIに感じる認知症との共通点",
+   "source": "日経BOOKプラス",
+   "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE0tRGt3ZG9uejNOUXBIUHVyYWU0OVlYeEJYTkRHV2NCdnVnZlhPQUtXMkdPYU9hN1FmUjdXMzJpR0NRb2Rud3gzSTR3ck13bzR4dmNMV2NiOTloMTZzX0RuRlJEX1YyaEZxUWdEeQ?oc=5",
+   "topic": "生成AI",
+   "published_at": "2026-11-24T05:00:00+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「大隅典子」",
+     "url": "https://ja.wikipedia.org/wiki/%E5%A4%A7%E9%9A%85%E5%85%B8%E5%AD%90"
+    }
+   ]
+  },
+  {
+   "id": "n56f70806",
+   "title": "AWS、Strands Decider V2を公開し、対応するコーディングエージェントを拡大",
+   "source": "Unite.AI",
+   "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPUWNFalZ6ZkJRM1dJN3RENUs5QVdkb2YzZmtTTFZMRFh2eDl2dG9JODU3OGc2SzVDSTZpTEpvYUxxZW9BUHpBSEgxUElMWUJlblJxSUM5YmVQaXFqcmhxY01SZ3RLSTNtV2Z0b0RFcFdMZDV0M1FLOWs4ZE4tWUlwVF9ubjBEa2gyTDVCNmM3NGoyMXc?oc=5",
+   "topic": "クラウド",
+   "published_at": "2026-11-24T03:33:04+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「Amazon Web Services」",
+     "url": "https://ja.wikipedia.org/wiki/Amazon_Web_Services"
+    }
+   ]
+  },
+  {
+   "id": "nae4bf0de",
+   "title": "GitHub Actions は仕様に違反する YAML を受け入れます。",
+   "source": "news.lavx.hu",
+   "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQMDdTUk5JTWlhYWdzLVJCVW45aERBTS1ZdGt2cUQyWlUtYnA3cjFwVDg5bGM3TzNib0FaQm1KRndkcURhRkxVb0NzVXFlRmdZdy1UMldacl9pMHREMEw3dVpHd3d2WUNpS2ZkNDlsWFBXd2ZkdzdwbzgtQjFvTzVuWTJRcW1UalhPcXkwN18yV2k?oc=5",
+   "topic": "開発技術",
+   "published_at": "2026-11-23T09:50:01+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「GitHub Actions」",
+     "url": "https://ja.wikipedia.org/wiki/GitHub_Actions"
+    },
+    {
+     "source": "Wikipedia「YAML」",
+     "url": "https://ja.wikipedia.org/wiki/YAML"
+    }
+   ]
+  },
+  {
+   "id": "n5ba5e2a4",
+   "title": "東京・竹久夢二美術館で「入門展」 作品鑑賞のヒント多角的に",
+   "source": "山陽新聞",
+   "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9nb2NRRFpQMWxuN3dlaGpLQ242VW1Nb2dxcWxOdkx4cXRQbkpqOUpVTTI1N3ZKUjVkek4yLW9keW1wU3RuYWZ5dG5FcXdQbk9pSTJvdm96ZlZfUQ?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-23T17:13:45+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「竹久夢二美術館」",
+     "url": "https://ja.wikipedia.org/wiki/%E7%AB%B9%E4%B9%85%E5%A4%A2%E4%BA%8C%E7%BE%8E%E8%A1%93%E9%A4%A8"
+    },
+    {
+     "source": "Wikipedia「竹久夢二」",
+     "url": "https://ja.wikipedia.org/wiki/%E7%AB%B9%E4%B9%85%E5%A4%A2%E4%BA%8C"
+    }
+   ]
+  },
+  {
+   "id": "nb894f248",
+   "title": "派遣スタッフの生成AI活用の実態、求めているのは「Excelでのデータ集計の時短」など、実務直結型のスキル",
+   "source": "山陽新聞",
+   "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE9LclBfQjBLeW9nWWtSRTAtQUZKb3lHUURxczVNeUJSdWJUX1BrZi1HSWpGTVF5Y1FiYU5nVWZBOE9kdWg2cGIxYUx3OFJyWWRlRVE?oc=5",
+   "topic": "生成AI",
+   "published_at": "2026-11-24T02:50:28+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「Microsoft Excel」",
+     "url": "https://ja.wikipedia.org/wiki/Microsoft_Excel"
+    }
+   ]
+  },
+  {
+   "id": "n709969f6",
+   "title": "ヨシダナギによる少数民族の姿を写し出した写真展が池袋で開催",
+   "source": "ウォーカープラス",
+   "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE03TUNNaDJNZWFYVjJGdExkWWNaaFJNUnlINnZrWVp0dWxNdTBkdlZRS1V1bXBtUWxQanByYUdYQlpwY2E1bnpwUTR5NUh0ZGQ2SS1VaVVHb1U4NTdGU1lzYTh4TlZfaWVNNmc?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-23T11:32:44+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「ヨシダナギ」",
+     "url": "https://ja.wikipedia.org/wiki/%E3%83%A8%E3%82%B7%E3%83%80%E3%83%8A%E3%82%AE"
+    }
+   ]
+  },
+  {
+   "id": "n170ed36f",
+   "title": "「臨床美術+育脳Art 作品展Vol6」世田谷美術館で11月29日まで 3歳から102歳までの作品が勢ぞろい",
+   "source": "美術展ナビ",
+   "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9xQnJYTkJ4WHBIZGtPUjhlVlh2VHBIQVlnSmFZam93TTJCZHJ1dGxoSVBZZEg1dGdtSDF2VnNhOS14dEFMWWwyZlZIRS15eFo4RFJDTnBHbExtdnRYLV9GQ2x0M0FtWC1F?oc=5",
+   "topic": "東京周辺の美術イベント",
+   "published_at": "2026-11-23T11:07:41+09:00",
+   "related": [],
+   "notes": [
+    {
+     "source": "Wikipedia「世田谷美術館」",
+     "url": "https://ja.wikipedia.org/wiki/%E4%B8%96%E7%94%B0%E8%B0%B7%E7%BE%8E%E8%A1%93%E9%A4%A8"
+    }
+   ]
+  }
+ ],
+ "readings": [],
+ "qa": {
+  "warnings": []
+ }
+}
